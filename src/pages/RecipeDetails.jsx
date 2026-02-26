@@ -1,6 +1,14 @@
-function RecepieDetails(){
+import RecipeDetailCard from "../features/RecipeDetailCard";
 
-   return (<></>)
+function RecipeDetails({ recipe }) {
+  return (
+    <>
+      <button>Add</button>
+      <RecipeDetailCard recipe={recipe}></RecipeDetailCard>
+      <button>Back to search</button>
+      <button>Add to Favorites</button>
+    </>
+  );
 }
 
-export default RecepieDetails;
+export default RecipeDetails;
