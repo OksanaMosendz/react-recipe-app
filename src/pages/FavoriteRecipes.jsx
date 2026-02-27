@@ -1,6 +1,10 @@
+import RecipeList from '../features/RecipeList'
 function FavoriteRecipes(){
 
-   return (<></>)
+
+   return (<>
+  {/* <RecipeList/> */}
+   </>)
 }
 
 export default FavoriteRecipes;
