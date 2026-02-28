@@ -3,7 +3,7 @@ function RecipeList({ recipeList }) {
   return (
     <ul>
       {recipeList.map((recipe) => (
-        <RecipeItem key={recipe.idMeal} recipe={recipe} />
+       <li key={recipe.id}><RecipeItem  recipe={recipe} /></li>
       ))}
     </ul>
   );

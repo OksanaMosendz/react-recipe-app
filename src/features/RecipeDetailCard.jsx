@@ -1,27 +1,20 @@
-function RecipeDetailCard({ recipe }) {
-  let ingredients = [];
-  for (let i = 1; i < 21; i++) {
-    if (recipe[`strIngredient${i}`]) {
-      ingredients.push({
-        name: recipe[`strIngredient${i}`],
-        measure: recipe[`strMeasure${i}`],
-      });
-    }
-  }
 
+function RecipeDetailCard({recipe}){
+
+console.log(recipe.ingredients)
   return (
     <div>
-      <h2>{recipe.strMeal}</h2>
-      <p>{recipe.strArea}</p>
-      <img src={recipe.strMealThumb} alt={recipe.strMeal} />
+      <h2>{recipe.name}</h2>
+      <p>{recipe.area}</p>
+      <img src={recipe.img} alt={recipe.name} />
       <ul>
-        {ingredients.map((ingr, i) => (
+        {recipe.ingredients?.map((ingr, i) => (
           <li key={i}>
             {ingr.name} {ingr.measure}
           </li>
         ))}
       </ul>
-      <p>{recipe.strInstructions}</p>
+      <p>{recipe.instructions}</p>
     </div>
   );
 }

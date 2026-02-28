@@ -1,12 +1,16 @@
+import {Link} from 'react-router-dom';
 function RecipeItem({ recipe }) {
+
+
   return (
-    <li key={recipe.idMeal}>
-      <h3>{recipe.strMeal}</h3>
-      <img src={recipe.strMealThumb} alt={recipe.strMeal} />
-      <button>add</button>
-      {/* <button>Edit</button>
-<button>Delete</button> */}
-    </li>
+    <div>
+      <h3>{recipe.name}</h3>
+      <img src={recipe.img} alt={recipe.name} />
+      {!recipe.isFavorite&&<button>add</button>}
+      <Link to={`/recipe/${recipe.id}`}>View</Link>
+      {recipe.isFavorite&&<><button>Edit</button>
+      <button>Remove</button></>}
+    </div>
   );
 }
 

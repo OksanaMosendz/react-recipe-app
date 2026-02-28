@@ -3,7 +3,7 @@ function FavoriteRecipes(){
 
 
    return (<>
-  {/* <RecipeList/> */}
+  <RecipeList />
    </>)
 }
 
