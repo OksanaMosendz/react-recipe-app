@@ -1,16 +1,14 @@
 function Search({ searchValue, setSearchValue }) {
   return (
-    <form>
+    <form onSubmit={(e)=>e.preventDefault()}>
       <label htmlFor="searchRecipe">Search recipe</label>
       <input
         type="search"
         id="searchRecipe"
         value={searchValue}
-        onChange={(e) => {
-          setSearchValue(e.target.value);
-        }}
+        onChange={(e) =>setSearchValue(e.target.value)}
       ></input>
-      <button type="button" onClick={()=>{setSearchValue("")}}>
+      <button type="button" onClick={()=>setSearchValue("")}>
         Clear
       </button>
     </form>

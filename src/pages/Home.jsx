@@ -29,7 +29,7 @@ function Home({API}) {
         }
         const recipes = await data.meals;
 
-        recipes ? setRecipeList(formatRecipes(recipes, false, "medium")):[];
+        recipes ? setRecipeList(formatRecipes(recipes, false, "small")):[];
       } catch (error) {
         console.log(error);
       } finally {

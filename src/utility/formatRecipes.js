@@ -15,10 +15,11 @@ let newRecipe={
    name: recipe.strMeal,
    id: recipe.idMeal,
    area: recipe.strArea,
-   instructions: recipe.strInstructions,
-   img: `${recipe.strMealThumb}/${imgSize}`,
+   imgSize,
+   img: `${recipe.strMealThumb}/`,
    isFavorite,
    ingredients: [...ingredients],
+  instructions: recipe.strInstructions,
 }
 return newRecipe
  })
