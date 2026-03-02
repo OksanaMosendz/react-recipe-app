@@ -1,18 +1,11 @@
 import RecipeList from '../features/RecipeList'
+import favoritesStorage from '../utility/favoritesStorage';
 
 // create
-// add 
-// edit
-// remove 
-
-
 
 function FavoriteRecipes(){
-
-
-
    return (<>
-  {/* <RecipeList recipeList={favoriteRecipeList}/> */}
+  <RecipeList recipeList={favoritesStorage.getList()}/>
    </>)
 }
 

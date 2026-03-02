@@ -1,7 +1,8 @@
 import RecipeDetailCard from "../features/RecipeDetailCard";
-import { useParams, Link, useLocation, useNavigate } from "react-router-dom";
+import { useParams, useLocation, useNavigate } from "react-router-dom";
 import { useEffect, useState } from "react";
 import formatRecipes from "../utility/formatRecipes.js";
+import favoritesStorage from "../utility/favoritesStorage.js";
 
 function RecipeDetails({ API }) {
   const [recipe, setRecipe] = useState([]);
@@ -9,15 +10,8 @@ function RecipeDetails({ API }) {
   const location = useLocation();
   const navigate = useNavigate();
 
-let favoriteRecipeList=localStorage.getItem("favoriteRecipeList");
-
-  if (!favoriteRecipeList) {
-    localStorage.setItem("favoriteRecipeList", `${JSON.stringify([])}`);}
-    favoriteRecipeList = JSON.parse(favoriteRecipeList);
-  
-
   useEffect(() => {
-    const fetchRecipe = async () => {
+    const fetchRecipeById = async () => {
       try {
         const response = await fetch(
           `${API.url}${API.key}${API.query.byId}${id}`,
@@ -36,29 +30,20 @@ let favoriteRecipeList=localStorage.getItem("favoriteRecipeList");
         console.log("fetch is done");
       }
     };
-    fetchRecipe();
-  }, []);
+
+    const favoriteRecipe = (favoritesStorage.getList()).find((recipe) => id === recipe.id);
+    favoriteRecipe ? setRecipe(favoriteRecipe) : fetchRecipeById();
+  }, [API, id]);
 
   function addRecipe() {
     setRecipe({ ...recipe, isFavorite: true });
-
-    favoriteRecipeList =[ ...favoriteRecipeList, { ...recipe, isFavorite: true, imgSize: "medium" } ]
-
-    localStorage.setItem(
-      "favoriteRecipeList",
-      `${JSON.stringify(favoriteRecipeList)}`,
-    );
+    favoritesStorage.addRecipe(recipe);
   }
 
-function removeRecipe(){
- setRecipe({ ...recipe, isFavorite: false });
-favoriteRecipeList=favoriteRecipeList.filter((favRecipe)=>favRecipe.id!==recipe.id);
- 
-localStorage.setItem(
-      "favoriteRecipeList",
-      `${JSON.stringify(favoriteRecipeList)}`,
-    )
-}
+  function removeRecipe() {
+    setRecipe({ ...recipe, isFavorite: false });
+    favoritesStorage.removeRecipe(recipe);
+  }
 
   return (
     <>
