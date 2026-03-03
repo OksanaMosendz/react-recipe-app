@@ -1,5 +1,5 @@
 function formatRecipes(fetchedRecipeList, isFavorite, imgSize) {
-  const formatedRecipeList = fetchedRecipeList.map((recipe) => {
+  const formatedRecipeList = fetchedRecipeList?.map((recipe) => {
     let ingredients = [];
     for (let i = 1; i < 21; i++) {
       if (recipe[`strIngredient${i}`]) {
@@ -19,6 +19,7 @@ function formatRecipes(fetchedRecipeList, isFavorite, imgSize) {
       isFavorite,
       ingredients: [...ingredients],
       instructions: recipe.strInstructions,
+      
     };
     return newRecipe;
   });

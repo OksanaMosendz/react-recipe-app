@@ -3,9 +3,10 @@ import { useParams, useLocation, useNavigate } from "react-router-dom";
 import { useEffect, useState } from "react";
 import formatRecipes from "../utility/formatRecipes.js";
 import favoritesStorage from "../utility/favoritesStorage.js";
+import RecipeForm from "../features/RecipeForm.jsx"
 
 function RecipeDetails({ API }) {
-  const [recipe, setRecipe] = useState([]);
+  const [recipe, setRecipe] = useState({});
   const { id } = useParams();
   const location = useLocation();
   const navigate = useNavigate();
@@ -31,8 +32,15 @@ function RecipeDetails({ API }) {
       }
     };
 
-    const favoriteRecipe = (favoritesStorage.getList()).find((recipe) => id === recipe.id);
-    favoriteRecipe ? setRecipe(favoriteRecipe) : fetchRecipeById();
+    const favoriteRecipe = favoritesStorage
+      .getList()
+      .find((recipe) => id === recipe.id);
+
+    if (favoriteRecipe) {
+      setRecipe(favoriteRecipe);
+    } else if (id !== "new" && !favoriteRecipe) {
+      fetchRecipeById();
+    }
   }, [API, id]);
 
   function addRecipe() {
@@ -41,26 +49,32 @@ function RecipeDetails({ API }) {
   }
 
   function removeRecipe() {
-    setRecipe({ ...recipe, isFavorite: false });
+    id==='new'? setRecipe({}): setRecipe({ ...recipe, isFavorite: false });
     favoritesStorage.removeRecipe(recipe);
   }
 
+
   return (
     <>
-      <RecipeDetailCard recipe={recipe}></RecipeDetailCard>
-      <button onClick={() => navigate(location.state?.back || "/")}>
-        Back
-      </button>
+      {id === "new"&&!recipe.isFavorite && <RecipeForm setRecipe={setRecipe} />}
+
       {recipe.isFavorite ? (
         <div>
+          <RecipeDetailCard recipe={recipe}></RecipeDetailCard>
           <button>Edit</button>
           <button onClick={removeRecipe}>Remove </button>
         </div>
       ) : (
-        <div>
-          <button onClick={addRecipe}>Add to Favorites</button>
-        </div>
+        Object.keys(recipe).length > 0 && (
+          <div>
+            <RecipeDetailCard recipe={recipe}></RecipeDetailCard>
+            <button onClick={addRecipe}>Add to Favorites</button>
+          </div>
+        )
       )}
+      <button onClick={() => navigate(location.state?.back || "/")}>
+        Back
+      </button>
     </>
   );
 }
