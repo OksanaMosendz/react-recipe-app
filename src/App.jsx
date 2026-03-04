@@ -30,7 +30,7 @@ function App() {
       case "/favorites":
         setTitle("Favorites");
         break;
-          case "/recipe/new":
+          case "/favorite/new":
         setTitle("New Recipe");
         break;
       case "/recipe/:id":

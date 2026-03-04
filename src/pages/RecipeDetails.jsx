@@ -3,7 +3,7 @@ import { useParams, useLocation, useNavigate } from "react-router-dom";
 import { useEffect, useState } from "react";
 import formatRecipes from "../utility/formatRecipes.js";
 import favoritesStorage from "../utility/favoritesStorage.js";
-import RecipeForm from "../features/RecipeForm.jsx"
+import RecipeForm from "../features/RecipeForm.jsx";
 
 function RecipeDetails({ API }) {
   const [recipe, setRecipe] = useState({});
@@ -32,46 +32,50 @@ function RecipeDetails({ API }) {
       }
     };
 
-    const favoriteRecipe = favoritesStorage
-      .getList()
-      .find((recipe) => id === recipe.id);
+    const favoriteRecipe = favoritesStorage.getById(id);
 
-    if (favoriteRecipe) {
-      setRecipe(favoriteRecipe);
-    } else if (id !== "new" && !favoriteRecipe) {
-      fetchRecipeById();
-    }
+    favoriteRecipe ? setRecipe(favoriteRecipe) : fetchRecipeById();
   }, [API, id]);
 
   function addRecipe() {
-    setRecipe({ ...recipe, isFavorite: true });
+    setRecipe({ ...recipe, isFavorite: true, imgSize: "large" });
     favoritesStorage.addRecipe(recipe);
   }
 
   function removeRecipe() {
-    id==='new'? setRecipe({}): setRecipe({ ...recipe, isFavorite: false });
+    setRecipe({ ...recipe, isFavorite: false });
     favoritesStorage.removeRecipe(recipe);
   }
 
+  function editRecipe() {
+    setRecipe({ ...recipe, isEditing: true });
+  }
 
   return (
     <>
-      {id === "new"&&!recipe.isFavorite && <RecipeForm setRecipe={setRecipe} />}
+      {recipe.isEditing && <RecipeForm setRecipe={setRecipe} recipe={recipe} />}
 
-      {recipe.isFavorite ? (
+      {recipe.isFavorite && !recipe.isEditing && (
         <div>
           <RecipeDetailCard recipe={recipe}></RecipeDetailCard>
-          <button>Edit</button>
-          <button onClick={removeRecipe}>Remove </button>
+          <button type="button" onClick={editRecipe}>
+            Edit
+          </button>
+          <button type="button" onClick={removeRecipe}>
+            Remove{" "}
+          </button>
         </div>
-      ) : (
-        Object.keys(recipe).length > 0 && (
-          <div>
-            <RecipeDetailCard recipe={recipe}></RecipeDetailCard>
-            <button onClick={addRecipe}>Add to Favorites</button>
-          </div>
-        )
       )}
+
+      {!recipe.isFavorite && !recipe.isEditing && (
+        <div>
+          <RecipeDetailCard recipe={recipe}></RecipeDetailCard>
+          <button type="button" onClick={addRecipe}>
+            Add to Favorites
+          </button>
+        </div>
+      )}
+
       <button onClick={() => navigate(location.state?.back || "/")}>
         Back
       </button>

@@ -1,7 +1,6 @@
 
 function RecipeDetailCard({recipe}){
-
-  return (
+  return(
     <div>
       <h2>{recipe.name}</h2>
       <p>{recipe.area}</p>

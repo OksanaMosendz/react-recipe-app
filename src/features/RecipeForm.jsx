@@ -1,28 +1,20 @@
 import { useState } from "react";
 import favoritesStorage from "../utility/favoritesStorage";
 
-function RecipeForm({ setRecipe }) {
-  const [ingredients, setIngredients] = useState([]);
-  const [newRecipe, setNewRecipe] = useState({
-    name: "",
-    id: ``,
-    area: "",
-    imgSize: "large",
-    img: "https://www.themealdb.com/images/media/meals/yypwwq1511304979.jpg/",
-    isFavorite: false,
-    ingredients: [],
-    instructions: "",
-  });
+function RecipeForm({ setRecipe, recipe }) {
+ 
+  const [ingredients, setIngredients] = useState(recipe.ingredients);
 
   function createRecipe(e) {
     let createdRecipe = {
-      ...newRecipe,
-      id: `${Date.now()}`,
+      ...recipe,
+      id: recipe.id ? recipe.id : Date.now(),
       isFavorite: true,
       ingredients,
+      isEditing: false,
     };
     e.preventDefault();
-    setNewRecipe(createdRecipe);
+
     setRecipe(createdRecipe);
     favoritesStorage.addRecipe(createdRecipe);
   }
@@ -43,8 +35,8 @@ function RecipeForm({ setRecipe }) {
       <input
         type="text"
         id="recipeName"
-        value={newRecipe.name}
-        onChange={(e) => setNewRecipe({ ...newRecipe, name: e.target.value })}
+        value={recipe.name}
+        onChange={(e) => setRecipe({ ...recipe, name: e.target.value })}
       ></input>
 
       <ul>
@@ -80,10 +72,8 @@ function RecipeForm({ setRecipe }) {
       <label htmlFor="instructions">Instructions:</label>
       <textarea
         id="instructions"
-        value={newRecipe.instructions}
-        onChange={(e) =>
-          setNewRecipe({ ...newRecipe, instructions: e.target.value })
-        }
+        value={recipe.instructions}
+        onChange={(e) => setRecipe({ ...recipe, instructions: e.target.value })}
       ></textarea>
 
       <button type="submit" id="createRecipe">

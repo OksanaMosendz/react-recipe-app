@@ -5,15 +5,19 @@ const setList = (list) => {
   localStorage.setItem("favoriteRecipeList", JSON.stringify(list));
 };
 
-function addRecipe(recipe) {
-  setList([
-    ...getList(),
-    { ...recipe, isFavorite: true, imgSize: "medium" },
+const addRecipe =(recipe)=> {
+const checkedList= getList().filter((favRecipe) => favRecipe.id !== recipe.id);
+      setList([
+    ...checkedList,
+    { ...recipe, isFavorite: true, imgSize: "small" },
   ]);
 }
 
-function removeRecipe(recipe) {
+const removeRecipe=(recipe)=> {
   setList(getList().filter((favRecipe) => favRecipe.id !== recipe.id));
 }
 
-export default { addRecipe, removeRecipe, getList };
+const getById=(id)=>getList().find((recipe) => id === recipe.id);
+
+
+export default { addRecipe, removeRecipe, getList, getById };

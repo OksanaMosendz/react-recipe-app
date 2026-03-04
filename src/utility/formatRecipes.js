@@ -19,6 +19,7 @@ function formatRecipes(fetchedRecipeList, isFavorite, imgSize) {
       isFavorite,
       ingredients: [...ingredients],
       instructions: recipe.strInstructions,
+      isEditing: false,
       
     };
     return newRecipe;
