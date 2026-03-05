@@ -1,8 +1,7 @@
 import RecipeList from "../features/RecipeList";
-import { Link } from "react-router-dom";
-import favoritesStorage from "../utility/favoritesStorage";
 import RecipeForm from "../features/RecipeForm.jsx";
-import { useState } from "react";
+import { useState, useContext } from "react";
+import { FavoritesContext } from "../context/FavoritesContext.jsx";
 
 function FavoriteRecipes() {
   const [newRecipe, setNewRecipe] = useState({
@@ -16,6 +15,8 @@ function FavoriteRecipes() {
     instructions: "",
     isEditing: false,
   });
+
+  const { favoriteList } = useContext(FavoritesContext);
 
   return (
     <>
@@ -33,7 +34,7 @@ function FavoriteRecipes() {
             Create Your Recipe
           </button>
 
-          <RecipeList recipeList={favoritesStorage.getList()} />
+          <RecipeList recipeList={favoriteList} />
         </>
       ) : (
         <RecipeForm recipe={newRecipe} setRecipe={setNewRecipe} />

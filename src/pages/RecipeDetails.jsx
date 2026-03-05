@@ -1,15 +1,18 @@
 import RecipeDetailCard from "../features/RecipeDetailCard";
 import { useParams, useLocation, useNavigate } from "react-router-dom";
-import { useEffect, useState } from "react";
+import { useEffect, useState, useContext } from "react";
 import formatRecipes from "../utility/formatRecipes.js";
 import favoritesStorage from "../utility/favoritesStorage.js";
 import RecipeForm from "../features/RecipeForm.jsx";
+import { FavoritesContext } from "../context/FavoritesContext.jsx";
+import API from "../API/API.js";
 
-function RecipeDetails({ API }) {
+function RecipeDetails() {
   const [recipe, setRecipe] = useState({});
   const { id } = useParams();
   const location = useLocation();
   const navigate = useNavigate();
+  const { setFavoriteList } = useContext(FavoritesContext);
 
   useEffect(() => {
     const fetchRecipeById = async () => {
@@ -35,20 +38,23 @@ function RecipeDetails({ API }) {
     const favoriteRecipe = favoritesStorage.getById(id);
 
     favoriteRecipe ? setRecipe(favoriteRecipe) : fetchRecipeById();
-  }, [API, id]);
+  }, [id]);
 
   function addRecipe() {
     setRecipe({ ...recipe, isFavorite: true, imgSize: "large" });
     favoritesStorage.addRecipe(recipe);
+    setFavoriteList(favoritesStorage.getList());
   }
 
   function removeRecipe() {
     setRecipe({ ...recipe, isFavorite: false });
     favoritesStorage.removeRecipe(recipe);
+    setFavoriteList(favoritesStorage.getList());
   }
 
   function editRecipe() {
     setRecipe({ ...recipe, isEditing: true });
+    setFavoriteList(favoritesStorage.getList());
   }
 
   return (

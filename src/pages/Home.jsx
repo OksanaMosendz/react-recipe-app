@@ -3,9 +3,10 @@ import RecipeList from "../features/RecipeList";
 import RecipeItem from "../features/RecipeItem";
 import formatRecipes from "../utility/formatRecipes";
 import { useState, useEffect, useCallback } from "react";
+import API from "../API/API";
 
-function Home({ API }) {
-  const [randomRecipe, setRandomRecipe] = useState([]);
+function Home() {
+  const [randomRecipe, setRandomRecipe] = useState({});
   const [recipeList, setRecipeList] = useState([]);
   const [filteredRecipeList, setFilteredRecipeList] = useState([]);
   const [searchValue, setSearchValue] = useState("");
@@ -28,20 +29,23 @@ function Home({ API }) {
     } finally {
       console.log("fetch is done");
     }
-  }, [API, searchValue]);
+  }, [searchValue]);
 
   const filterByLetter = useCallback(() => {
-    let filteredList = recipeList.filter((recipe) => recipe.name.toLowerCase().includes(searchValue.toLowerCase()));
+    let filteredList = recipeList.filter((recipe) =>
+      recipe.name.toLowerCase().includes(searchValue.toLowerCase()),
+    );
     setFilteredRecipeList(filteredList);
   }, [recipeList, searchValue]);
 
   useEffect(() => {
     const debounce = setTimeout(() => {
-      if(searchValue.length===1){
-    fetchRecipesByLetter();
-      } else if(searchValue.length>1) {filterByLetter()}
-    
-    }, 300);
+      if (searchValue.length === 1) {
+        fetchRecipesByLetter();
+      } else if(searchValue.length > 1) {
+        filterByLetter();
+      }
+    }, 500);
     return () => clearTimeout(debounce);
   }, [searchValue, fetchRecipesByLetter, filterByLetter]);
 
@@ -64,12 +68,13 @@ function Home({ API }) {
       }
     };
     fetchRandomRecipe();
-  }, [API]);
+  }, []);
 
   return (
     <>
-      <p>Recipe Of The Day!</p>
+      <p>Try to cook!</p>
       <RecipeItem recipe={randomRecipe} />
+      
       <hr />
       <Search setSearchValue={setSearchValue} searchValue={searchValue} />
 

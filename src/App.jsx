@@ -6,23 +6,21 @@ import RecipeDetails from "./pages/RecipeDetails";
 import About from "./pages/About";
 import NotFound from "./pages/NotFound";
 import Header from "./shared/Header";
-import { useEffect, useState } from "react";
+import { useEffect, useState,} from "react";
+
 
 function App() {
   const [title, setTitle] = useState("Cookbook");
   const location = useLocation();
 
- const API = {
-    url: "https://www.themealdb.com/api/json/v1/",
-    key: import.meta.env.VITE_API_KEY,
-    query:{
-    random: "/random.php",
-    byLetter: "/search.php?f=",
-    byId: "/lookup.php?i="
-  }
-  };
+ useEffect(() => {
 
-  useEffect(() => {
+const changeTitle = ()=>{
+
+  if(location.pathname.startsWith('/recipe/')){
+      setTitle("Recipe");
+    }
+    else{
     switch (location.pathname) {
       case "/":
         setTitle("Cookbook");
@@ -33,25 +31,25 @@ function App() {
           case "/favorite/new":
         setTitle("New Recipe");
         break;
-      case "/recipe/:id":
-        setTitle("Recipe");
-        break;
-      case "/about":
+        case "/about":
         setTitle("About");
         break;
       default:
         setTitle("Not Found");
         break;
-    }
-  }, [location]);
+    }}
+  }
+changeTitle();
+
+  },[location.pathname]);
 
   return (
     <>
       <Header title={title} />
       <Routes>
-        <Route path="/" element={<Home API={API}/>} />
+        <Route path="/" element={<Home/>} />
         <Route path="/favorites" element={<FavoriteRecipes />} />
-        <Route path="/recipe/:id" element={<RecipeDetails API={API}/>} />
+        <Route path="/recipe/:id" element={<RecipeDetails />} />
         <Route path="/about" element={<About />} />
         <Route path="*" element={<NotFound />} />
       </Routes>

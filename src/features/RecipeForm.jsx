@@ -2,7 +2,6 @@ import { useState } from "react";
 import favoritesStorage from "../utility/favoritesStorage";
 
 function RecipeForm({ setRecipe, recipe }) {
- 
   const [ingredients, setIngredients] = useState(recipe.ingredients);
 
   function createRecipe(e) {
