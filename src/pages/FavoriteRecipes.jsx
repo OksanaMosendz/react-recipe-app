@@ -2,14 +2,14 @@ import RecipeList from "../features/RecipeList";
 import RecipeForm from "../features/RecipeForm.jsx";
 import { useState, useContext } from "react";
 import { FavoritesContext } from "../context/FavoritesContext.jsx";
+import placeholder from "../assets/img/placeholder.svg";
 
 function FavoriteRecipes() {
   const [newRecipe, setNewRecipe] = useState({
     name: "",
     id: ``,
     area: "",
-    imgSize: "large",
-    img: "https://www.themealdb.com/images/media/meals/yypwwq1511304979.jpg/",
+    img: placeholder,
     isFavorite: false,
     ingredients: [],
     instructions: "",

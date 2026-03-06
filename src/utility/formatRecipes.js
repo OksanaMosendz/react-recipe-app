@@ -1,4 +1,6 @@
-function formatRecipes(fetchedRecipeList, isFavorite, imgSize) {
+import placeholder from "../assets/img/placeholder.svg"
+
+function formatRecipes(fetchedRecipeList, isFavorite) {
   const formatedRecipeList = fetchedRecipeList?.map((recipe) => {
     let ingredients = [];
     for (let i = 1; i < 21; i++) {
@@ -14,14 +16,15 @@ function formatRecipes(fetchedRecipeList, isFavorite, imgSize) {
       name: recipe.strMeal,
       id: recipe.idMeal,
       area: recipe.strArea,
-      imgSize,
-      img: `${recipe.strMealThumb}/`,
+      img:  recipe.strMealThumb? `${recipe.strMealThumb}/large`: placeholder,
       isFavorite,
       ingredients: [...ingredients],
       instructions: recipe.strInstructions,
       isEditing: false,
       
     };
+
+
     return newRecipe;
   });
   return formatedRecipeList;

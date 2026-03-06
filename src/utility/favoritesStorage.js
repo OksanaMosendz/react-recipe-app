@@ -9,7 +9,7 @@ const addRecipe =(recipe)=> {
 const checkedList= getList().filter((favRecipe) => favRecipe.id !== recipe.id);
       setList([
     ...checkedList,
-    { ...recipe, isFavorite: true, imgSize: "small" },
+    { ...recipe, isFavorite: true},
   ]);
 }
 

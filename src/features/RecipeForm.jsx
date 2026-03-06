@@ -1,21 +1,35 @@
-import { useState } from "react";
+import { useContext, useState } from "react";
 import favoritesStorage from "../utility/favoritesStorage";
-
+import { FavoritesContext } from "../context/FavoritesContext";
+import placeholder from "../assets/img/placeholder.svg";
 function RecipeForm({ setRecipe, recipe }) {
   const [ingredients, setIngredients] = useState(recipe.ingredients);
+  const { setFavoriteList } = useContext(FavoritesContext);
 
   function createRecipe(e) {
     let createdRecipe = {
       ...recipe,
-      id: recipe.id ? recipe.id : Date.now(),
+      id: recipe.id ? recipe.id : `${Date.now()}`,
       isFavorite: true,
       ingredients,
       isEditing: false,
     };
     e.preventDefault();
 
-    setRecipe(createdRecipe);
     favoritesStorage.addRecipe(createdRecipe);
+    setFavoriteList(favoritesStorage.getList());
+    recipe.id
+      ? setRecipe(createdRecipe)
+      : setRecipe({
+          name: "",
+          id: ``,
+          area: "",
+          img: placeholder,
+          isFavorite: false,
+          ingredients: [],
+          instructions: "",
+          isEditing: false,
+        });
   }
 
   function addIngredient() {
@@ -76,7 +90,7 @@ function RecipeForm({ setRecipe, recipe }) {
       ></textarea>
 
       <button type="submit" id="createRecipe">
-        Save my Recipe
+        Save
       </button>
     </form>
   );

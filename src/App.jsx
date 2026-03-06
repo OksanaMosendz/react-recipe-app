@@ -8,9 +8,9 @@ import NotFound from "./pages/NotFound";
 import Header from "./shared/Header";
 import { useEffect, useState,} from "react";
 
-
 function App() {
   const [title, setTitle] = useState("Cookbook");
+ 
   const location = useLocation();
 
  useEffect(() => {
@@ -49,7 +49,7 @@ changeTitle();
       <Routes>
         <Route path="/" element={<Home/>} />
         <Route path="/favorites" element={<FavoriteRecipes />} />
-        <Route path="/recipe/:id" element={<RecipeDetails />} />
+        <Route path="/recipe/:id" element={<RecipeDetails/>} />
         <Route path="/about" element={<About />} />
         <Route path="*" element={<NotFound />} />
       </Routes>

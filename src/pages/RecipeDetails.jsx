@@ -13,8 +13,10 @@ function RecipeDetails() {
   const location = useLocation();
   const navigate = useNavigate();
   const { setFavoriteList } = useContext(FavoritesContext);
+const [isLoading, setIsLoading] = useState(false); 
 
   useEffect(() => {
+    setIsLoading(true);
     const fetchRecipeById = async () => {
       try {
         const response = await fetch(
@@ -27,21 +29,21 @@ function RecipeDetails() {
         }
         const recipes = await data.meals;
 
-        setRecipe(formatRecipes(recipes, false, "large")[0]);
+        setRecipe(formatRecipes(recipes, false)[0]);
       } catch (error) {
         console.log(error);
       } finally {
         console.log("fetch is done");
+        setIsLoading(false)
       }
     };
 
-    const favoriteRecipe = favoritesStorage.getById(id);
-
-    favoriteRecipe ? setRecipe(favoriteRecipe) : fetchRecipeById();
+   favoritesStorage.getById(id) ? setRecipe( favoritesStorage.getById(id)) : fetchRecipeById();
+    setIsLoading(false)
   }, [id]);
 
   function addRecipe() {
-    setRecipe({ ...recipe, isFavorite: true, imgSize: "large" });
+    setRecipe({ ...recipe, isFavorite: true });
     favoritesStorage.addRecipe(recipe);
     setFavoriteList(favoritesStorage.getList());
   }
@@ -63,7 +65,7 @@ function RecipeDetails() {
 
       {recipe.isFavorite && !recipe.isEditing && (
         <div>
-          <RecipeDetailCard recipe={recipe}></RecipeDetailCard>
+          <RecipeDetailCard recipe={recipe} isLoading={isLoading}></RecipeDetailCard>
           <button type="button" onClick={editRecipe}>
             Edit
           </button>

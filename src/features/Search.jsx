@@ -1,6 +1,5 @@
 function Search({ searchValue, setSearchValue }) {
   
-
   return (
     <form onSubmit={(e)=>e.preventDefault()}>
       <label htmlFor="searchRecipe">Search recipe</label>
