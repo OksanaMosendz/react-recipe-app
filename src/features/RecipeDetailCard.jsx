@@ -1,11 +1,11 @@
-import { FavoritesContext } from "../context/FavoritesContext.jsx";
+import { RecipesContext } from "../context/RecipesContext.jsx";
 import { useContext } from "react";
 import favoritesStorage from "../utility/favoritesStorage.js";
 import RecipeActionBtns from "../shared/recipeActionBtns.jsx";
 
 function RecipeDetailCard({recipe, setRecipe}){
 
- const { setFavoriteList } = useContext(FavoritesContext);
+ const { setFavoriteList, setIsEditing } = useContext(RecipesContext);
 
 function handleAddRecipe() {
     setRecipe({ ...recipe, isFavorite: true });
@@ -19,12 +19,7 @@ function handleAddRecipe() {
     setFavoriteList(favoritesStorage.getList());
   }
 
-  function handleEditRecipe() {
-    setRecipe({ ...recipe, isEditing: true });
-    setFavoriteList(favoritesStorage.getList());
-  }
-
-  return(
+return(
 <div>
       <h2>{recipe.name}</h2>
       <p>{recipe.area}</p>
@@ -38,7 +33,7 @@ function handleAddRecipe() {
   
        <RecipeActionBtns
         onAdd={handleAddRecipe}
-        onEdit={handleEditRecipe}
+        onEdit={()=>setIsEditing(true)}
         onRemove={handleRemoveRecipe}
         isFavorite={recipe.isFavorite}/>
       </div>

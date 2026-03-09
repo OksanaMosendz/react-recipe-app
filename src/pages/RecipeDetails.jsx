@@ -1,20 +1,24 @@
 import RecipeDetailCard from "../features/RecipeDetailCard";
 import { useParams } from "react-router-dom";
-import { useEffect, useState } from "react";
+import { useEffect, useState, useContext } from "react";
 import formatRecipes from "../utility/formatRecipes.js";
 import RecipeForm from "../features/RecipeForm.jsx";
 import API from "../API/API.js";
 import BackButton from "../shared/BackBtn.jsx";
 import favoritesStorage from "../utility/favoritesStorage.js";
+import { RecipesContext } from "../context/RecipesContext";
+import Error from "../shared/Error.jsx";
 
 function RecipeDetails() {
   const { id } = useParams();
   const [isLoading, setIsLoading] = useState(false);
   const [recipe, setRecipe] = useState({});
   const [error, setError] = useState("");
+  const {isEditing } = useContext(RecipesContext);
 
   useEffect(() => {
     const fetchRecipeById = async () => {
+      setError('');
       setIsLoading(true);
       try {
         const response = await fetch(
@@ -42,13 +46,13 @@ function RecipeDetails() {
 
   return (
     <>
-      {recipe.isEditing && <RecipeForm setRecipe={setRecipe} recipe={recipe} />}
+      {isEditing && <RecipeForm setRecipe={setRecipe} recipe={recipe} />}
 
       {isLoading && <p>...Loading...</p>}
-      {error && <p>Something went wrong. Please try again later.</p>}
+      {error && <Error error={error}/>}
 
-      {!isLoading && !error && !recipe.isEditing && (
-        <RecipeDetailCard recipe={recipe} setRecipe={setRecipe} />
+      {!isLoading && !error && !isEditing && (
+        <RecipeDetailCard recipe={recipe} setRecipe={setRecipe}  />
    
       )}
 <BackButton />

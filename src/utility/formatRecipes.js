@@ -19,9 +19,7 @@ function formatRecipes(fetchedRecipeList, isFavorite) {
       img:  recipe.strMealThumb? `${recipe.strMealThumb}/large`: placeholder,
       isFavorite,
       ingredients: [...ingredients],
-      instructions: recipe.strInstructions,
-      isEditing: false,
-      
+      instructions: recipe.strInstructions,   
     };
 
 

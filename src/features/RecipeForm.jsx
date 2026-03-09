@@ -1,43 +1,51 @@
 import { useContext, useState } from "react";
 import favoritesStorage from "../utility/favoritesStorage";
-import { FavoritesContext } from "../context/FavoritesContext";
+import { RecipesContext } from "../context/RecipesContext";
 import placeholder from "../assets/img/placeholder.svg";
 import InputWithLabel from "../shared/InputWithLabel";
 
-function RecipeForm({ setRecipe, recipe }) {
-  const [ingredients, setIngredients] = useState(recipe.ingredients);
-  const { setFavoriteList } = useContext(FavoritesContext);
+function RecipeForm({ setRecipe, recipe} ){
 
-  function handleCreateRecipe(e) {
-    let createdRecipe = {
+const { setFavoriteList, setIsEditing } = useContext(RecipesContext);
+const [ingredients, setIngredients] = useState([...recipe.ingredients]);
+const [createdRecipe,setCreatedRecipe] = useState({
       ...recipe,
-      id: recipe.id ? recipe.id : `${Date.now()}`,
+      img: !recipe.img? recipe.img :placeholder,
       isFavorite: true,
-      ingredients,
-      isEditing: false,
-    };
+      ingredients
+} )
+console.log([...recipe.ingredients]);
+  function handleCreateRecipe(e) {
+    const newRecipe = {
+    ...createdRecipe,
+    ingredients
+  };
     e.preventDefault();
-
-    favoritesStorage.addRecipe(createdRecipe);
+    
+    setRecipe(newRecipe);
+    favoritesStorage.addRecipe(newRecipe);
     setFavoriteList(favoritesStorage.getList());
-    recipe.id
-      ? setRecipe(createdRecipe)
-      : setRecipe({
-          name: "",
-          id: ``,
-          area: "",
-          img: placeholder,
-          isFavorite: false,
-          ingredients: [],
-          instructions: "",
-          isEditing: false,
-        });
+    setCreatedRecipe({
+                name: "",
+                id: '',
+                area: "",
+                isFavorite: false,
+                ingredients: [],
+                instructions: "",
+              });
+    setIsEditing(false);
   }
 
   function handleIngredientChange(i, field, inputValue) {
     const changedIngredients = [...ingredients];
     changedIngredients[i][field] = inputValue;
     setIngredients(changedIngredients);
+    // setCreatedRecipe({...createdRecipe, ingredients});
+  }
+
+  function handleRemoveIngr(ingrIndex){
+    const updatedIngredients=ingredients.filter((_,i)=>i!==ingrIndex);
+    setIngredients([...updatedIngredients]);
   }
 
   return (
@@ -46,18 +54,20 @@ function RecipeForm({ setRecipe, recipe }) {
         label="Recipe name"
         id="recipeName"
         type="text"
-        value={recipe.name}
-        onChange={(e) => setRecipe({ ...recipe, name: e.target.value })}
+        required={true}
+        value={createdRecipe.name}
+        onChange={(e) => setCreatedRecipe({ ...createdRecipe, name: e.target.value })}
       />
 
       <ul>
         {ingredients.map((ingr, i) => (
-          <li key={i}>
+          <li key={createdRecipe.id+i}>
             <InputWithLabel
               label="Ingredient"
               type="text"
               id={`ingredient${i}`}
               value={ingr.name}
+              required={true}
               onChange={(e) =>
                 handleIngredientChange(i, "name", e.target.value)
               }
@@ -68,10 +78,13 @@ function RecipeForm({ setRecipe, recipe }) {
               type="text"
               id={`measure${i}`}
               value={ingr.measure}
+              required={false}
               onChange={(e) =>
                 handleIngredientChange(i, "measure", e.target.value)
               }
-            />
+     />
+              <button type="button" onClick={()=>handleRemoveIngr(i)}>X</button>
+       
           </li>
         ))}
       </ul>
@@ -88,15 +101,15 @@ function RecipeForm({ setRecipe, recipe }) {
       <label htmlFor="instructions">Instructions:</label>
       <textarea
         id="instructions"
-        value={recipe.instructions}
-        onChange={(e) => setRecipe({ ...recipe, instructions: e.target.value })}
+        value={createdRecipe.instructions}
+        onChange={(e) => setCreatedRecipe({ ...createdRecipe, instructions: e.target.value })}
       ></textarea>
 
-      <button type="submit" disabled={!recipe.name} id="createRecipe">
+      <button type="submit" disabled={!createdRecipe.name} id="createRecipe">
         Save
       </button>
 
-      <button type="button">Cancel</button>
+      <button type="button" onClick={()=>setIsEditing(false)}>Cancel</button>
     </form>
   );
 }

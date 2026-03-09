@@ -1,4 +1,4 @@
-function InputWithLabel({ label, type, id, value, onChange }) {
+function InputWithLabel({ label, type, id, value, onChange, required }) {
   
    return (
     <>
@@ -8,6 +8,7 @@ function InputWithLabel({ label, type, id, value, onChange }) {
         id={id}
         value={value}
         onChange={onChange}
+      required={required}
       ></input>
     </>
   );

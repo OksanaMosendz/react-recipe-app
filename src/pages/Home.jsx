@@ -2,21 +2,25 @@ import SearchForm from "../features/SearchForm";
 import RecipeList from "../features/RecipeList";
 import RecipeItem from "../features/RecipeItem";
 import formatRecipes from "../utility/formatRecipes";
-import { useState, useEffect, useCallback } from "react";
+import { useState, useEffect, useCallback,useContext } from "react";
 import API from "../API/API";
+import { RecipesContext } from "../context/RecipesContext";
+import  Error from '../shared/Error.jsx';
 
-function Home({ setError }) {
+function Home() {
   const [randomRecipe, setRandomRecipe] = useState({});
   const [recipeList, setRecipeList] = useState([]);
   const [filteredRecipeList, setFilteredRecipeList] = useState([]);
-  const [searchValue, setSearchValue] = useState("");
+  const {searchValue, setSearchValue } = useContext(RecipesContext);
   const [isLoading, setIsLoading] = useState(false);
+  const [error, setError]=useState('');
 
   const fetchRecipesByLetter = useCallback(async () => {
+    setError('');
     setIsLoading(true);
     try {
       const response = await fetch(
-        `${API.url}${API.key}${API.query.byLetter}${searchValue}`,
+        `${API.url}${API.key}${API.query.byLetter}${searchValue[0]}`,
       );
       const data = await response.json();
 
@@ -27,6 +31,7 @@ function Home({ setError }) {
       recipes ? setRecipeList(formatRecipes(recipes, false)) : [];
     } catch (error) {
       setError(error.message);
+        setIsLoading(false);
     } finally {
       setIsLoading(false);
       console.log("fetch");
@@ -39,22 +44,24 @@ function Home({ setError }) {
         setRecipeList([]);
       } else if (searchValue.length === 1) {
         fetchRecipesByLetter();
-      }
-    }, 300);
-    return () => clearTimeout(debounce);
+      }  
+    
+    return () => clearTimeout(debounce)})
   }, [searchValue, fetchRecipesByLetter]);
 
   useEffect(() => {
-    if (searchValue.length > 1) {
-      let filteredList = recipeList.filter((recipe) =>
+    if (searchValue.length > 1&&recipeList.length>0){
+        let filteredList = recipeList.filter((recipe) =>
         recipe.name.toLowerCase().includes(searchValue.toLowerCase()),
       );
-      setFilteredRecipeList(filteredList);
-    }
-  }, [searchValue, recipeList]);
+            setFilteredRecipeList(filteredList);
+    }else if(recipeList.length===0&&searchValue.length > 1){
+         fetchRecipesByLetter()}
+    }, [searchValue, recipeList, fetchRecipesByLetter]);
 
   useEffect(() => {
     const fetchRandomRecipe = async () => {
+       setError('');
       setIsLoading(true);
       try {
         const response = await fetch(`${API.url}${API.key}${API.query.random}`);
@@ -68,6 +75,7 @@ function Home({ setError }) {
         setRandomRecipe(formatRecipes(recipes, false, "medium")[0]);
       } catch (error) {
         setError(error.message);
+        setIsLoading(false);
       } finally {
         setIsLoading(false);
       }
@@ -75,7 +83,9 @@ function Home({ setError }) {
     Object.keys(randomRecipe).length === 0 && fetchRandomRecipe();
   }, [randomRecipe, setError]);
 
-  return (
+  if (error) {
+  return <Error error={error}/>}
+  else return (
     <>
       <p>Try to cook!</p>
       {(isLoading&&Object.keys(randomRecipe).length===0)? <p>...Loading...</p> : <RecipeItem recipe={randomRecipe} />}

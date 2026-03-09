@@ -1,12 +1,13 @@
 import InputWithLabel from "../shared/InputWithLabel";
 
 function SearchForm({ searchValue, setSearchValue }) {
-  return (
+   return (
     <form onSubmit={(e) => e.preventDefault()}>
       <InputWithLabel
         label="Search recipe"
         type="search"
         id="search recipe"
+        required={false}
         value={searchValue}
         onChange={(e) => setSearchValue(e.target.value)}
       />

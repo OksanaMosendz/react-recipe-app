@@ -1,46 +1,43 @@
 import RecipeList from "../features/RecipeList";
 import RecipeForm from "../features/RecipeForm.jsx";
-import { useState, useContext, useEffect } from "react";
-import { FavoritesContext } from "../context/FavoritesContext.jsx";
-import placeholder from "../assets/img/placeholder.svg";
+import { useState, useContext } from "react";
+// import placeholder from "../assets/img/placeholder.svg";
+import { RecipesContext } from "../context/RecipesContext.jsx";
 
 function FavoriteRecipes() {
- 
-  const [newRecipe, setNewRecipe] = useState({
-    name: "",
-    id: ``,
-    area: "",
-    img: placeholder,
-    isFavorite: false,
-    ingredients: [],
-    instructions: "",
-    isEditing: false,
-  });
-
-  const { favoriteList } = useContext(FavoritesContext);
-
-  useEffect(()=>{favoriteList.map(rec=> rec.isEditing&&setNewRecipe(rec))},[favoriteList])
- 
+  const [currentRecipe, setCurrentRecipe] = useState({});
+  const { favoriteList,setIsEditing,isEditing } = useContext(RecipesContext);
   return (
     <>
-      {!newRecipe.isEditing ? (
+      {!isEditing ? (
         <>
           <button
             type="button"
-            onClick={() =>
-              setNewRecipe({
-                ...newRecipe,
-                isEditing: true,
-              })
-            }
+            onClick={() => {
+              setIsEditing(true);
+              setCurrentRecipe({
+                name: "",
+                id: `${Date.now()}`,
+                area: "",
+                isFavorite: false,
+                ingredients: [],
+                instructions: "",
+              });
+            }}
           >
             Create Your Recipe
           </button>
 
-          <RecipeList recipeList={favoriteList} />
+          <RecipeList
+            recipeList={favoriteList}
+            setCurrentRecipe={setCurrentRecipe}
+          />
         </>
       ) : (
-        <RecipeForm recipe={newRecipe} setRecipe={setNewRecipe} />
+        <RecipeForm
+          recipe={currentRecipe}
+          setRecipe={setCurrentRecipe}
+                />
       )}
     </>
   );
