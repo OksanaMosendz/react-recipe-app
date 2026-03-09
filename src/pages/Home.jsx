@@ -1,43 +1,43 @@
-import Search from "../features/Search";
+import SearchForm from "../features/SearchForm";
 import RecipeList from "../features/RecipeList";
 import RecipeItem from "../features/RecipeItem";
 import formatRecipes from "../utility/formatRecipes";
-import { useState, useEffect , useCallback} from "react";
+import { useState, useEffect, useCallback } from "react";
 import API from "../API/API";
 
-function Home() {
+function Home({ setError }) {
   const [randomRecipe, setRandomRecipe] = useState({});
   const [recipeList, setRecipeList] = useState([]);
   const [filteredRecipeList, setFilteredRecipeList] = useState([]);
   const [searchValue, setSearchValue] = useState("");
   const [isLoading, setIsLoading] = useState(false);
 
- 
-    const fetchRecipesByLetter = useCallback(async () => {
-      setIsLoading(true);
-      try {
-        const response = await fetch(
-          `${API.url}${API.key}${API.query.byLetter}${searchValue}`,
-        );
-        const data = await response.json();
+  const fetchRecipesByLetter = useCallback(async () => {
+    setIsLoading(true);
+    try {
+      const response = await fetch(
+        `${API.url}${API.key}${API.query.byLetter}${searchValue}`,
+      );
+      const data = await response.json();
 
-        if (!response.ok) {
-          throw new Error(data.error.message);
-        }
-        const recipes = await data.meals;
-        recipes ? setRecipeList(formatRecipes(recipes, false)) : [];
-      } catch (error) {
-        console.log(error);
-      } finally {
-        setIsLoading(false);
-        console.log("fetch");
+      if (!response.ok) {
+        throw new Error(data.error.message);
       }
-    },[searchValue]);
+      const recipes = await data.meals;
+      recipes ? setRecipeList(formatRecipes(recipes, false)) : [];
+    } catch (error) {
+      setError(error.message);
+    } finally {
+      setIsLoading(false);
+      console.log("fetch");
+    }
+  }, [searchValue, setError]);
 
-
- useEffect(() => {
+  useEffect(() => {
     const debounce = setTimeout(() => {
-      if (searchValue.length === 1) {
+      if (searchValue.length === 0) {
+        setRecipeList([]);
+      } else if (searchValue.length === 1) {
         fetchRecipesByLetter();
       }
     }, 300);
@@ -45,16 +45,17 @@ function Home() {
   }, [searchValue, fetchRecipesByLetter]);
 
   useEffect(() => {
-   if (searchValue.length > 1) {
-        let filteredList = recipeList.filter((recipe) =>
-          recipe.name.toLowerCase().includes(searchValue.toLowerCase()),
-        );
-        setFilteredRecipeList(filteredList);
-      }  
+    if (searchValue.length > 1) {
+      let filteredList = recipeList.filter((recipe) =>
+        recipe.name.toLowerCase().includes(searchValue.toLowerCase()),
+      );
+      setFilteredRecipeList(filteredList);
+    }
   }, [searchValue, recipeList]);
 
   useEffect(() => {
     const fetchRandomRecipe = async () => {
+      setIsLoading(true);
       try {
         const response = await fetch(`${API.url}${API.key}${API.query.random}`);
         const data = await response.json();
@@ -66,29 +67,35 @@ function Home() {
 
         setRandomRecipe(formatRecipes(recipes, false, "medium")[0]);
       } catch (error) {
-        console.log(error);
+        setError(error.message);
       } finally {
-        console.log("fetch is done");
+        setIsLoading(false);
       }
     };
-    fetchRandomRecipe();
-  }, []);
+    Object.keys(randomRecipe).length === 0 && fetchRandomRecipe();
+  }, [randomRecipe, setError]);
 
   return (
     <>
       <p>Try to cook!</p>
-      <RecipeItem recipe={randomRecipe} />
-
+      {(isLoading&&Object.keys(randomRecipe).length===0)? <p>...Loading...</p> : <RecipeItem recipe={randomRecipe} />}
       <hr />
-      <Search setSearchValue={setSearchValue} searchValue={searchValue} />
 
-      { !isLoading&&(
+      <SearchForm setSearchValue={setSearchValue} searchValue={searchValue} />
+
+      {searchValue && !isLoading && (
         <RecipeList
           recipeList={searchValue.length > 1 ? filteredRecipeList : recipeList}
         />
       )}
 
-      {isLoading && <p>...Loading...</p>}
+      {isLoading && searchValue && <p>...Loading...</p>}
+
+      {!isLoading &&
+        searchValue &&
+        (recipeList.length === 0 || filteredRecipeList.length === 0) && (
+          <p>No recipes found for "{searchValue}"</p>
+        )}
     </>
   );
 }

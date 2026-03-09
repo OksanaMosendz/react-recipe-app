@@ -10,7 +10,7 @@ import { useEffect, useState,} from "react";
 
 function App() {
   const [title, setTitle] = useState("Cookbook");
- 
+ const [error, setError]=useState('');
   const location = useLocation();
 
  useEffect(() => {
@@ -47,9 +47,9 @@ changeTitle();
     <>
       <Header title={title} />
       <Routes>
-        <Route path="/" element={<Home/>} />
+        <Route path="/" element={<Home setError={setError}/>} />
         <Route path="/favorites" element={<FavoriteRecipes />} />
-        <Route path="/recipe/:id" element={<RecipeDetails/>} />
+        <Route path="/recipe/:id" element={<RecipeDetails setError={setError} />} />
         <Route path="/about" element={<About />} />
         <Route path="*" element={<NotFound />} />
       </Routes>
