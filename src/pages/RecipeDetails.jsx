@@ -32,7 +32,7 @@ function RecipeDetails() {
         setRecipe(formatRecipes(recipes, false)[0]);
       } catch (error) {
         setError(error.message);
-        setIsLoading(false);
+        
       } finally {
         setIsLoading(false);
       }

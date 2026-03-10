@@ -1,16 +1,68 @@
-# React + Vite
+<!-- Cookbook Recipes -->
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+Cookbook Recipes is a React single-page application that allows users to discover recipes, view recipe details, and manage a personal list of favorite recipes. Users can also create and edit their own recipes which are stored in Local Storage.
 
-Currently, two official plugins are available:
+The application retrieves recipe data from a public API and uses React Router for navigation between pages.
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Babel](https://babeljs.io/) (or [oxc](https://oxc.rs) when used in [rolldown-vite](https://vite.dev/guide/rolldown)) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
+<!-- Dependencies -->
 
-## React Compiler
+**Main dependencies used in this project:**
 
-The React Compiler is not enabled on this template because of its impact on dev & build performances. To add it, see [this documentation](https://react.dev/learn/react-compiler/installation).
+react
 
-## Expanding the ESLint configuration
+react-dom
 
-If you are developing a production application, we recommend using TypeScript with type-aware lint rules enabled. Check out the [TS template](https://github.com/vitejs/vite/tree/main/packages/create-vite/template-react-ts) for information on how to integrate TypeScript and [`typescript-eslint`](https://typescript-eslint.io) in your project.
+react-router
+
+React Router is used to implement client-side routing between pages.
+
+
+<!-- Installation and Running the Project -->
+
+**Clone the repository:**
+
+git clone https://github.com/OksanaMosendz/react-recipe-app.git
+
+**Navigate to the project folder:**
+
+cd react-recipe-app
+
+**Install dependencies:**
+
+npm install
+
+Run the development server:
+
+npm run dev
+
+**The application will run on:**
+
+http://localhost:5173
+
+<!-- API Connection -->
+
+This project uses the public recipe **API TheMealDB:**
+
+https://www.themealdb.com/api.php
+
+The application retrieves recipe data using the following endpoints:
+
+-random recipe
+
+-search recipes by letter
+
+-lookup recipe by id
+
+<!-- Environment Variables -->
+
+**Create a .env.local file in the project root:**
+
+VITE_API_KEY=1
+
+An example file is provided:
+
+.env.local.example
+
+**Credentials / External Services**
+
+The project uses TheMealDB API, which allows anonymous access and does not require user credentials.

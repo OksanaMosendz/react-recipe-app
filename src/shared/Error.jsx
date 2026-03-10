@@ -2,7 +2,7 @@ function Error({error}){
 
 return(<div>
 <p>Something went wrong.</p>
-<p>{error.message}</p>
+<p>{error}</p>
 </div>)
 }
 

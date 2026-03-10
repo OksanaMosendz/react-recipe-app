@@ -7,6 +7,7 @@ import About from "./pages/About";
 import NotFound from "./pages/NotFound";
 import Header from "./shared/Header";
 import { useEffect, useState,} from "react";
+import Footer from "./shared/Footer";
 
 function App() {
   const [title, setTitle] = useState("Cookbook");
@@ -44,7 +45,7 @@ changeTitle();
   },[location.pathname]);
 
   return (
-    <>
+  <>
       <Header title={title} />
       <Routes>
         <Route path="/" element={<Home/>} />
@@ -53,7 +54,9 @@ changeTitle();
         <Route path="/about" element={<About />} />
         <Route path="*" element={<NotFound />} />
       </Routes>
-    </>
+      <Footer/>
+</>
+
   );
 }
 

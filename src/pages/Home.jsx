@@ -31,10 +31,9 @@ function Home() {
       recipes ? setRecipeList(formatRecipes(recipes, false)) : [];
     } catch (error) {
       setError(error.message);
-        setIsLoading(false);
+       
     } finally {
       setIsLoading(false);
-      console.log("fetch");
     }
   }, [searchValue, setError]);
 
@@ -45,8 +44,8 @@ function Home() {
       } else if (searchValue.length === 1) {
         fetchRecipesByLetter();
       }  
-    
-    return () => clearTimeout(debounce)})
+    })
+    return () => clearTimeout(debounce)
   }, [searchValue, fetchRecipesByLetter]);
 
   useEffect(() => {
@@ -75,7 +74,7 @@ function Home() {
         setRandomRecipe(formatRecipes(recipes, false, "medium")[0]);
       } catch (error) {
         setError(error.message);
-        setIsLoading(false);
+     
       } finally {
         setIsLoading(false);
       }

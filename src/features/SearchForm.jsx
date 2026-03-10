@@ -6,7 +6,7 @@ function SearchForm({ searchValue, setSearchValue }) {
       <InputWithLabel
         label="Search recipe"
         type="search"
-        id="search recipe"
+        id="searchRecipe"
         required={false}
         value={searchValue}
         onChange={(e) => setSearchValue(e.target.value)}

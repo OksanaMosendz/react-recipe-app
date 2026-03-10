@@ -10,7 +10,7 @@ const { setFavoriteList, setIsEditing } = useContext(RecipesContext);
 const [ingredients, setIngredients] = useState([...recipe.ingredients]);
 const [createdRecipe,setCreatedRecipe] = useState({
       ...recipe,
-      img: !recipe.img? recipe.img :placeholder,
+      img: recipe.img? recipe.img :placeholder,
       isFavorite: true,
       ingredients
 } )
