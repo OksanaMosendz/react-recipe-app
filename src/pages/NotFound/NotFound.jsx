@@ -1,4 +1,4 @@
-import BackButton from "../shared/BackBtn";
+import BackButton from "../../shared/BackBtn/BackBtn";
 
 function NotFound(){
    return (<>   

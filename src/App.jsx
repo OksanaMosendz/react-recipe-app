@@ -1,13 +1,14 @@
-import "./App.css";
-import { useLocation, Route, Routes } from "react-router-dom";
-import Home from "./pages/Home";
-import FavoriteRecipes from "./pages/FavoriteRecipes";
-import RecipeDetails from "./pages/RecipeDetails";
-import About from "./pages/About";
-import NotFound from "./pages/NotFound";
-import Header from "./shared/Header";
-import { useEffect, useState,} from "react";
-import Footer from "./shared/Footer";
+import { useEffect, useState, } from "react";
+import { Route, Routes, useLocation } from "react-router-dom";
+import styles from "./App.module.css";
+import About from "./pages/About/About";
+import FavoriteRecipes from "./pages/FavoriteRecipes/FavoriteRecipes";
+import Home from "./pages/Home/Home";
+import NotFound from "./pages/NotFound/NotFound";
+import RecipeDetails from "./pages/RecipeDetails/RecipeDetails";
+import Container from './shared/Container/Container';
+import Footer from "./shared/Footer/Footer";
+import Header from "./shared/Header/Header";
 
 function App() {
   const [title, setTitle] = useState("Cookbook");
@@ -27,7 +28,7 @@ const changeTitle = ()=>{
         setTitle("Cookbook");
         break;
       case "/favorites":
-        setTitle("Favorites");
+        setTitle("Favorite Recipes");
         break;
           case "/favorite/new":
         setTitle("New Recipe");
@@ -45,8 +46,9 @@ changeTitle();
   },[location.pathname]);
 
   return (
-  <>
+  <div className={styles.app}>
       <Header title={title} />
+    <Container className={styles.app_container}>
       <Routes>
         <Route path="/" element={<Home/>} />
         <Route path="/favorites" element={<FavoriteRecipes />} />
@@ -54,8 +56,9 @@ changeTitle();
         <Route path="/about" element={<About />} />
         <Route path="*" element={<NotFound />} />
       </Routes>
+      </Container>
       <Footer/>
-</>
+</div>
 
   );
 }

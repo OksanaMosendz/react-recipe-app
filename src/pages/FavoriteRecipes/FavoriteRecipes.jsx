@@ -1,8 +1,7 @@
-import RecipeList from "../features/RecipeList";
-import RecipeForm from "../features/RecipeForm.jsx";
-import { useState, useContext } from "react";
-// import placeholder from "../assets/img/placeholder.svg";
-import { RecipesContext } from "../context/RecipesContext.jsx";
+import { useContext, useState } from "react";
+import { RecipesContext } from "../../context/RecipesContext.jsx";
+import RecipeForm from "../../features/RecipeForm/RecipeForm.jsx";
+import RecipeList from "../../features/RecipeList/RecipeList.jsx";
 
 function FavoriteRecipes() {
   const [currentRecipe, setCurrentRecipe] = useState({});

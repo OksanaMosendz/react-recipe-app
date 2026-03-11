@@ -1,4 +1,4 @@
-import InputWithLabel from "../shared/InputWithLabel";
+import InputWithLabel from "../../shared/InputWithLabel/InputWithLabel";
 
 function SearchForm({ searchValue, setSearchValue }) {
    return (

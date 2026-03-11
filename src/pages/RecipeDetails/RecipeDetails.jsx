@@ -1,13 +1,13 @@
-import RecipeDetailCard from "../features/RecipeDetailCard";
+import { useContext, useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
-import { useEffect, useState, useContext } from "react";
-import formatRecipes from "../utility/formatRecipes.js";
-import RecipeForm from "../features/RecipeForm.jsx";
-import API from "../API/API.js";
-import BackButton from "../shared/BackBtn.jsx";
-import favoritesStorage from "../utility/favoritesStorage.js";
-import { RecipesContext } from "../context/RecipesContext";
-import Error from "../shared/Error.jsx";
+import API from "../../API/API.js";
+import { RecipesContext } from "../../context/RecipesContext.jsx";
+import RecipeDetailCard from "../../features/RecipeDetailCard/RecipeDetailCard.jsx";
+import RecipeForm from "../../features/RecipeForm/RecipeForm.jsx";
+import BackButton from "../../shared/BackBtn/BackBtn.jsx";
+import Error from "../../shared/Error/Error.jsx";
+import favoritesStorage from "../../utility/favoritesStorage.js";
+import formatRecipes from "../../utility/formatRecipes.js";
 
 function RecipeDetails() {
   const { id } = useParams();
@@ -15,7 +15,7 @@ function RecipeDetails() {
   const [recipe, setRecipe] = useState({});
   const [error, setError] = useState("");
   const {isEditing } = useContext(RecipesContext);
-
+  
   useEffect(() => {
     const fetchRecipeById = async () => {
       setError('');

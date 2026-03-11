@@ -13,9 +13,9 @@
   <path d="M160 175 q20 -18 40 0 q20 18 40 0" stroke="#f4b942" stroke-width="6" fill="none"/>
 
   <!-- tomato sauce -->
-  <circle cx="200" cy="150" r="8" fill="#e74c3c"/>
-  <circle cx="180" cy="165" r="6" fill="#e74c3c"/>
-  <circle cx="220" cy="165" r="6" fill="#e74c3c"/>
+  <circle cx="200" cy="150" r="8" fill="#EF4444"/>
+  <circle cx="180" cy="165" r="6" fill="#EF4444"/>
+  <circle cx="220" cy="165" r="6" fill="#EF4444"/>
 
   <!-- basil -->
   <ellipse cx="210" cy="140" rx="6" ry="10" fill="#2ecc71"/>

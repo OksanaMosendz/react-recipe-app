@@ -1,8 +1,8 @@
 import { useContext } from "react";
-import favoritesStorage from "../utility/favoritesStorage";
-import { RecipesContext } from "../context/RecipesContext";
-import RecipeActionBtns from "../shared/recipeActionBtns";
-import RecipeItem from "./RecipeItem";
+import favoritesStorage from "../../utility/favoritesStorage";
+import { RecipesContext } from "../../context/RecipesContext";
+import RecipeActionBtns from "../RecipeActionsBtns/RecipeActionBtns";
+import RecipeItem from "../RecipeItem/RecipeItem";
 
 function RecipeList({ recipeList, setCurrentRecipe}) {
 const { setFavoriteList, setIsEditing } = useContext(RecipesContext);

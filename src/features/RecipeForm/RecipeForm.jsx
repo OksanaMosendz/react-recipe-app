@@ -1,8 +1,8 @@
 import { useContext, useState } from "react";
-import favoritesStorage from "../utility/favoritesStorage";
-import { RecipesContext } from "../context/RecipesContext";
-import placeholder from "../assets/img/placeholder.svg";
-import InputWithLabel from "../shared/InputWithLabel";
+import placeholder from "../../assets/img/placeholder.svg";
+import { RecipesContext } from "../../context/RecipesContext";
+import InputWithLabel from "../../shared/InputWithLabel/InputWithLabel";
+import favoritesStorage from "../../utility/favoritesStorage";
 
 function RecipeForm({ setRecipe, recipe} ){
 
@@ -40,8 +40,7 @@ console.log([...recipe.ingredients]);
     const changedIngredients = [...ingredients];
     changedIngredients[i][field] = inputValue;
     setIngredients(changedIngredients);
-    // setCreatedRecipe({...createdRecipe, ingredients});
-  }
+ }
 
   function handleRemoveIngr(ingrIndex){
     const updatedIngredients=ingredients.filter((_,i)=>i!==ingrIndex);
@@ -61,7 +60,7 @@ console.log([...recipe.ingredients]);
 
       <ul>
         {ingredients.map((ingr, i) => (
-          <li key={createdRecipe.id+i}>
+          <li key={i}>
             <InputWithLabel
               label="Ingredient"
               type="text"

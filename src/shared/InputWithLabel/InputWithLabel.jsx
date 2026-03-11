@@ -1,7 +1,8 @@
+import styles from './InputWithLabe.module.css'
 function InputWithLabel({ label, type, id, value, onChange, required }) {
   
    return (
-    <>
+    <div className={styles.input_wrapper}>
       <label htmlFor={id}>{label}</label>
       <input
         type={type}
@@ -10,7 +11,7 @@ function InputWithLabel({ label, type, id, value, onChange, required }) {
         onChange={onChange}
       required={required}
       ></input>
-    </>
+    </div>
   );
 }
 

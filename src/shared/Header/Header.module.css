@@ -1,0 +1,43 @@
+.header{
+   border-bottom: 1px solid black;
+   padding: 1rem 0;
+   width: 100%;
+   display: flex;
+   justify-content: center;
+   background-color:  rgba(133, 247, 19, 0.466);
+}
+
+.header_content{
+display: flex;
+align-items: center;
+}
+
+h1{
+color:#F97316;
+}
+
+nav{
+display: flex;
+justify-content: end;
+}
+
+.nav_list{
+display: flex;
+flex-direction: row;
+gap:1rem;
+}
+
+.header_container{
+   display: flex;
+   flex-direction: column;
+justify-content: center;
+}
+
+.nav_item {
+color:black;
+}
+
+.active{
+   color: #F97316;
+}
+

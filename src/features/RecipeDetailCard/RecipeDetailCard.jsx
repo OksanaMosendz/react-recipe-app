@@ -1,7 +1,7 @@
-import { RecipesContext } from "../context/RecipesContext.jsx";
 import { useContext } from "react";
-import favoritesStorage from "../utility/favoritesStorage.js";
-import RecipeActionBtns from "../shared/recipeActionBtns.jsx";
+import { RecipesContext } from "../../context/RecipesContext.jsx";
+import favoritesStorage from "../../utility/favoritesStorage.js";
+import RecipeActionBtns from "../RecipeActionsBtns/RecipeActionBtns.jsx";
 
 function RecipeDetailCard({recipe, setRecipe}){
 

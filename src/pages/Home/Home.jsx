@@ -1,11 +1,11 @@
-import SearchForm from "../features/SearchForm";
-import RecipeList from "../features/RecipeList";
-import RecipeItem from "../features/RecipeItem";
-import formatRecipes from "../utility/formatRecipes";
-import { useState, useEffect, useCallback,useContext } from "react";
-import API from "../API/API";
-import { RecipesContext } from "../context/RecipesContext";
-import  Error from '../shared/Error.jsx';
+import { useCallback, useContext, useEffect, useState } from "react";
+import API from "../../API/API.js";
+import { RecipesContext } from "../../context/RecipesContext";
+import RecipeItem from "../../features/RecipeItem/RecipeItem.jsx";
+import RecipeList from "../../features/RecipeList/RecipeList.jsx";
+import SearchForm from "../../features/SearchForm/SearchForm.jsx";
+import Error from '../../shared/Error/Error.jsx';
+import formatRecipes from "../../utility/formatRecipes";
 
 function Home() {
   const [randomRecipe, setRandomRecipe] = useState({});
