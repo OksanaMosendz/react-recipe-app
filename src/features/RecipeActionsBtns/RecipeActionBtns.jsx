@@ -1,17 +1,13 @@
+import Button from "../../shared/Button/Button";
+
 function RecipeActionBtns ({onEdit, onRemove,onAdd, isFavorite} ){
 
    return (
-     !isFavorite?  <button type="button" onClick={onAdd}>
-            Add
-          </button>:
+     !isFavorite? <Button handleEvent={()=>onAdd()} text="Add"/>:
           <>
-     <button type="button" onClick={onEdit}>
-            Edit
-          </button>
-          <button type="button" onClick={onRemove}>
-            Remove
-          </button>
-      </>
+     <Button  handleEvent={()=>onEdit()} text='Edit'/>
+     <Button handleEvent={()=>onRemove()} text='Remove'/>
+       </>
    )
 }
 

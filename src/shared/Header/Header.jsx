@@ -10,9 +10,9 @@ function Header({ title }) {
       <Container className={styles.header_container}>
         <nav>
         <ul className={styles.nav_list}>
-        <li>  <NavLink className={({isActive})=>isActive ? styles.active : styles.nav_item} to="/">Home</NavLink></li>
-        <li>  <NavLink className={({isActive})=>isActive ? styles.active : styles.nav_item} to="/favorites">Favorites</NavLink></li>
-        <li>  <NavLink className={({isActive})=>isActive ? styles.active : styles.nav_item} to="/about">About</NavLink></li>
+        <li>  <NavLink className={({isActive})=>isActive ? styles.active : styles.nav_link} to="/">Home</NavLink></li>
+        <li>  <NavLink className={({isActive})=>isActive ? styles.active : styles.nav_link} to="/favorites">Favorites</NavLink></li>
+        <li>  <NavLink className={({isActive})=>isActive ? styles.active : styles.nav_link} to="/about">About</NavLink></li>
         </ul>
         </nav>
 

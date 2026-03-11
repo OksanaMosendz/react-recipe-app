@@ -3,18 +3,19 @@ import placeholder from "../../assets/img/placeholder.svg";
 import { RecipesContext } from "../../context/RecipesContext";
 import InputWithLabel from "../../shared/InputWithLabel/InputWithLabel";
 import favoritesStorage from "../../utility/favoritesStorage";
+import Button from '../../shared/Button/Button'
 
 function RecipeForm({ setRecipe, recipe} ){
-
 const { setFavoriteList, setIsEditing } = useContext(RecipesContext);
-const [ingredients, setIngredients] = useState([...recipe.ingredients]);
+const [ingredients, setIngredients] = useState(recipe.ingredients ? [...recipe.ingredients] : [] );
 const [createdRecipe,setCreatedRecipe] = useState({
       ...recipe,
       img: recipe.img? recipe.img :placeholder,
       isFavorite: true,
-      ingredients
+      ingredients:[...ingredients]
 } )
 console.log([...recipe.ingredients]);
+
   function handleCreateRecipe(e) {
     const newRecipe = {
     ...createdRecipe,
@@ -82,21 +83,19 @@ console.log([...recipe.ingredients]);
                 handleIngredientChange(i, "measure", e.target.value)
               }
      />
-              <button type="button" onClick={()=>handleRemoveIngr(i)}>X</button>
+              <Button text="X" handleEvent={()=>handleRemoveIngr(i)}/>
        
           </li>
         ))}
       </ul>
 
-      <button
-        type="button"
-        onClick={() =>
+      <Button
+       text="Add ingridient"
+        handleEvent={() =>
           setIngredients([...ingredients, { name: "", measure: "" }])
         }
-      >
-        Add ingridient
-      </button>
-
+      />
+      
       <label htmlFor="instructions">Instructions:</label>
       <textarea
         id="instructions"
@@ -104,11 +103,9 @@ console.log([...recipe.ingredients]);
         onChange={(e) => setCreatedRecipe({ ...createdRecipe, instructions: e.target.value })}
       ></textarea>
 
-      <button type="submit" disabled={!createdRecipe.name} id="createRecipe">
-        Save
-      </button>
-
-      <button type="button" onClick={()=>setIsEditing(false)}>Cancel</button>
+      <Button text="Save" type="submit" disabled={!createdRecipe.name} handleEvent={(e)=>handleCreateRecipe(e)} id="createRecipe"/>
+  
+      <Button text="Cancel" handleEvent={()=>setIsEditing(false)}>Cancel</Button>
     </form>
   );
 }

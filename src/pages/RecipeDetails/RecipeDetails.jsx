@@ -1,24 +1,26 @@
 import { useContext, useEffect, useState } from "react";
-import { useParams } from "react-router-dom";
+import { useParams, useLocation, useNavigate } from "react-router-dom";
 import API from "../../API/API.js";
 import { RecipesContext } from "../../context/RecipesContext.jsx";
 import RecipeDetailCard from "../../features/RecipeDetailCard/RecipeDetailCard.jsx";
 import RecipeForm from "../../features/RecipeForm/RecipeForm.jsx";
-import BackButton from "../../shared/BackBtn/BackBtn.jsx";
 import Error from "../../shared/Error/Error.jsx";
 import favoritesStorage from "../../utility/favoritesStorage.js";
 import formatRecipes from "../../utility/formatRecipes.js";
+import Button from "../../shared/Button/Button.jsx";
 
 function RecipeDetails() {
   const { id } = useParams();
   const [isLoading, setIsLoading] = useState(false);
   const [recipe, setRecipe] = useState({});
   const [error, setError] = useState("");
-  const {isEditing } = useContext(RecipesContext);
-  
+  const { isEditing } = useContext(RecipesContext);
+  const location = useLocation();
+  const navigate = useNavigate();
+
   useEffect(() => {
     const fetchRecipeById = async () => {
-      setError('');
+      setError("");
       setIsLoading(true);
       try {
         const response = await fetch(
@@ -32,7 +34,6 @@ function RecipeDetails() {
         setRecipe(formatRecipes(recipes, false)[0]);
       } catch (error) {
         setError(error.message);
-        
       } finally {
         setIsLoading(false);
       }
@@ -49,14 +50,16 @@ function RecipeDetails() {
       {isEditing && <RecipeForm setRecipe={setRecipe} recipe={recipe} />}
 
       {isLoading && <p>...Loading...</p>}
-      {error && <Error error={error}/>}
+      {error && <Error error={error} />}
 
       {!isLoading && !error && !isEditing && (
-        <RecipeDetailCard recipe={recipe} setRecipe={setRecipe}  />
-   
+        <RecipeDetailCard recipe={recipe} setRecipe={setRecipe} />
       )}
-<BackButton />
-   
+
+      <Button
+        handleEvent={() => navigate(location.state?.back || "/")}
+        text={location.state?.back ? "Back" : "Go to Home Page"}
+      />
     </>
   );
 }

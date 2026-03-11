@@ -1,4 +1,5 @@
 import InputWithLabel from "../../shared/InputWithLabel/InputWithLabel";
+import Button from "../../shared/Button/Button";
 
 function SearchForm({ searchValue, setSearchValue }) {
    return (
@@ -11,13 +12,13 @@ function SearchForm({ searchValue, setSearchValue }) {
         value={searchValue}
         onChange={(e) => setSearchValue(e.target.value)}
       />
-      <button
-        type="button"
+      <Button
         disabled={!searchValue}
-        onClick={() => setSearchValue("")}
-      >
-        Clear
-      </button>
+        handleEvent={() => setSearchValue("")}
+           text='Clear'
+      />
+    
+    
     </form>
   );
 }

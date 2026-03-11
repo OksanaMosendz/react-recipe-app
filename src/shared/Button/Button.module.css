@@ -1,0 +1,18 @@
+.btn{
+background-color: #F97316;
+padding: 0.5rem 1rem;
+cursor:pointer;
+border-radius: 5px;
+min-width: 70px;
+max-width: 150px;
+}
+
+.btn:hover, :focus{
+transform: scale(1.2);
+}
+
+.btn:disabled{
+  background-color: rgb(196, 191, 191);
+  color: rgb(82, 80, 80);
+
+}

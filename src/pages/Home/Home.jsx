@@ -102,7 +102,7 @@ function Home() {
 
       {!isLoading &&
         searchValue &&
-        (recipeList.length === 0 || filteredRecipeList.length === 0) && (
+        (recipeList.length ===0 || filteredRecipeList.length === 0) && (
           <p>No recipes found for "{searchValue}"</p>
         )}
     </>
