@@ -3,6 +3,7 @@ import { RecipesContext } from "../../context/RecipesContext.jsx";
 import RecipeForm from "../../features/RecipeForm/RecipeForm.jsx";
 import RecipeList from "../../features/RecipeList/RecipeList.jsx";
 import Button from "../../shared/Button/Button.jsx";
+import styles from "./FavoriteREcipes.module.css"
 
 function FavoriteRecipes() {
   const [currentRecipe, setCurrentRecipe] = useState({
@@ -25,7 +26,7 @@ function FavoriteRecipes() {
   return (
     <>
       {!isEditing ? (
-        <>
+        <section className={styles.favorite_section}>
           <Button handleEvent={()=>handleCreateRecipe()} text='Create Recipe'/>
              {favoriteList.length === 0 ? (
             <p>No favorite recipes yet. Start adding some!</p>
@@ -35,7 +36,7 @@ function FavoriteRecipes() {
               setCurrentRecipe={setCurrentRecipe}
             />
           )}
-        </>
+        </section>
       ) : (
         <RecipeForm recipe={currentRecipe} setRecipe={setCurrentRecipe} />
       )}

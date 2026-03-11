@@ -2,6 +2,8 @@
  display: flex;
  flex-direction: column;
  justify-content: center;
+ gap: 2rem;
+ text-align: center;
 }
 
 .home_section h2{

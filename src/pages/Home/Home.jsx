@@ -21,7 +21,7 @@ function Home() {
   const fetchRecipesByLetter = useCallback(async () => {
     setError("");
     setIsLoading(true);
-    try {
+        try {
       const response = await fetch(
         `${API.url}${API.key}${API.query.byLetter}${searchValue[0]}`,
       );
@@ -31,7 +31,11 @@ function Home() {
         throw new Error(data.error.message);
       }
       const recipes = await data.meals;
-      recipes ? setRecipeList(formatRecipes(recipes, false)) : [];
+
+  if (recipes) {
+  setRecipeList(formatRecipes(recipes, false));
+} else  setRecipeList([]);
+
     } catch (error) {
       setError(error.message);
     } finally {
@@ -43,10 +47,11 @@ function Home() {
     const debounce = setTimeout(() => {
       if (searchValue.length === 0) {
         setRecipeList([]);
+        setFilteredRecipeList([])
       } else if (searchValue.length === 1) {
         fetchRecipesByLetter();
-      }
-    });
+      } 
+    }, 300);
     return () => clearTimeout(debounce);
   }, [searchValue, fetchRecipesByLetter]);
 
@@ -56,9 +61,10 @@ function Home() {
         recipe.name.toLowerCase().includes(searchValue.toLowerCase()),
       );
       setFilteredRecipeList(filteredList);
+     
     } else if (recipeList.length === 0 && searchValue.length > 1) {
       fetchRecipesByLetter();
-    }
+    } 
   }, [searchValue, recipeList, fetchRecipesByLetter]);
 
   useEffect(() => {
@@ -109,9 +115,10 @@ function Home() {
 
         {isLoading && searchValue && <Loader/>}
 
-        {!isLoading && searchValue && recipeList.length === 0 && (
-          <p>No recipes found for "{searchValue}"</p>
-        )}
+        {!isLoading && searchValue.length>0 && recipeList.length===0&&<p>No recipes found for "{searchValue}"</p>}
+
+{!isLoading && searchValue.length>1 && filteredRecipeList.length===0&&<p>No recipes found for "{searchValue}"</p>}
+
       </section>
     );
 }

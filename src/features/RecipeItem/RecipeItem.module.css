@@ -1,7 +1,6 @@
 .recipe_wrap{
    display:flex;
    flex-direction: column;
-   padding: 1rem;
 }
 
 .recipe_wrap a{

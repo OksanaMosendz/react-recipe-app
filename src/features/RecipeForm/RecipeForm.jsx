@@ -4,6 +4,7 @@ import { RecipesContext } from "../../context/RecipesContext";
 import InputWithLabel from "../../shared/InputWithLabel/InputWithLabel";
 import favoritesStorage from "../../utility/favoritesStorage";
 import Button from '../../shared/Button/Button'
+import styles from './RecipeForm.module.css'
 
 function RecipeForm({ setRecipe, recipe} ){
 const { setFavoriteList, setIsEditing } = useContext(RecipesContext);
@@ -48,7 +49,7 @@ const [createdRecipe,setCreatedRecipe] = useState({
   }
 
   return (
-    <form id="createRecipe" onSubmit={(e) => handleCreateRecipe(e)}>
+    <form className={styles.recipe_form} id="createRecipe" onSubmit={(e) => handleCreateRecipe(e)}>
       <InputWithLabel
         label="Recipe name"
         id="recipeName"
@@ -58,9 +59,10 @@ const [createdRecipe,setCreatedRecipe] = useState({
         onChange={(e) => setCreatedRecipe({ ...createdRecipe, name: e.target.value })}
       />
 
-      <ul>
+      <ul className={styles.ingr_list}>
         {ingredients.map((ingr, i) => (
-          <li key={ingr.id}>
+          <li className={styles.ingr_item} key={ingr.id+ingr.name}>
+
             <InputWithLabel
               label="Ingredient"
               type="text"
@@ -82,29 +84,30 @@ const [createdRecipe,setCreatedRecipe] = useState({
                 handleIngredientChange(i, "measure", e.target.value)
               }
      />
-              <Button text="X" handleEvent={()=>handleRemoveIngr(i)}/>
+              <Button className={styles.ingr_del_btn} text="X" handleEvent={()=>handleRemoveIngr(i)}/>
        
           </li>
         ))}
       </ul>
 
-      <Button
-       text="Add ingridient"
+      <Button className={styles.ingr_btn}
+             text="add ingridient"
         handleEvent={() =>
           setIngredients([...ingredients, { name: "", measure: "", id: `${Date.now()}` }])
         }
       />
-      
+      <div className={styles.textArea_wrap}>
       <label htmlFor="instructions">Instructions:</label>
       <textarea
         id="instructions"
         value={createdRecipe.instructions}
         onChange={(e) => setCreatedRecipe({ ...createdRecipe, instructions: e.target.value })}
       ></textarea>
-
+</div>
+<div className={ styles.form_btns}>
       <Button text="Save" type="submit" disabled={!createdRecipe.name} handleEvent={(e)=>handleCreateRecipe(e)} id="createRecipe"/>
-  
       <Button text="Cancel" handleEvent={()=>setIsEditing(false)}>Cancel</Button>
+      </div>
     </form>
   );
 }

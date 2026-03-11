@@ -1,6 +1,6 @@
 import placeholder from "../assets/img/placeholder.svg"
 
-function formatRecipes(fetchedRecipeList, isFavorite) {
+function formatRecipes(fetchedRecipeList=[], isFavorite) {
   const formatedRecipeList = fetchedRecipeList?.map((recipe) => {
     let ingredients = [];
     for (let i = 1; i < 21; i++) {
@@ -8,7 +8,7 @@ function formatRecipes(fetchedRecipeList, isFavorite) {
         ingredients.push({
           name: recipe[`strIngredient${i}`],
           measure: recipe[`strMeasure${i}`],
-          id: `${Date.now()}`,
+          id: `${Date.now()}`+[`strIngredient${i}`],
         });
       }
     }

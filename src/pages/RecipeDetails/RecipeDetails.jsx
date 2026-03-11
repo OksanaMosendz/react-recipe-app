@@ -7,7 +7,6 @@ import RecipeForm from "../../features/RecipeForm/RecipeForm.jsx";
 import Error from "../../shared/Error/Error.jsx";
 import favoritesStorage from "../../utility/favoritesStorage.js";
 import formatRecipes from "../../utility/formatRecipes.js";
-import Button from "../../shared/Button/Button.jsx";
 import Loader from "../../shared/Loader/Loader.jsx";
 
 function RecipeDetails() {
@@ -16,9 +15,7 @@ function RecipeDetails() {
   const [recipe, setRecipe] = useState({});
   const [error, setError] = useState("");
   const { isEditing } = useContext(RecipesContext);
-  const location = useLocation();
-  const navigate = useNavigate();
-
+ 
   useEffect(() => {
     const fetchRecipeById = async () => {
       setError("");
@@ -57,10 +54,7 @@ function RecipeDetails() {
         <RecipeDetailCard recipe={recipe} setRecipe={setRecipe} />
       )}
 
-      <Button
-        handleEvent={() => navigate(location.state?.back || "/")}
-        text={location.state?.back ? "Back" : "Go to Home Page"}
-      />
+     
     </>
   );
 }
