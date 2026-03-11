@@ -8,6 +8,7 @@ function formatRecipes(fetchedRecipeList, isFavorite) {
         ingredients.push({
           name: recipe[`strIngredient${i}`],
           measure: recipe[`strMeasure${i}`],
+          id: `${Date.now()}`,
         });
       }
     }

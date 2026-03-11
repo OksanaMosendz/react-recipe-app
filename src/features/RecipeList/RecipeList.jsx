@@ -3,6 +3,7 @@ import favoritesStorage from "../../utility/favoritesStorage";
 import { RecipesContext } from "../../context/RecipesContext";
 import RecipeActionBtns from "../RecipeActionsBtns/RecipeActionBtns";
 import RecipeItem from "../RecipeItem/RecipeItem";
+import styles from './RecipeList.module.css';
 
 function RecipeList({ recipeList, setCurrentRecipe }) {
   const { setFavoriteList, setIsEditing } = useContext(RecipesContext);

@@ -1,0 +1,21 @@
+.error {
+   display: flex;
+   flex-direction: column;
+   justify-content: center;
+  text-align: center;
+  margin: 2rem 0;
+}
+
+.error p{
+  margin: 1rem 0;
+}
+
+.error p:first-child {
+  color: #ff0000;
+  font-weight: 600;
+}
+.error img{
+   
+   max-width: 100px;
+   margin: 0 auto;
+}

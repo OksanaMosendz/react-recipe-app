@@ -1,9 +1,10 @@
 import InputWithLabel from "../../shared/InputWithLabel/InputWithLabel";
 import Button from "../../shared/Button/Button";
+import styles from "./SearchForm.module.css";
 
 function SearchForm({ searchValue, setSearchValue }) {
    return (
-    <form onSubmit={(e) => e.preventDefault()}>
+    <form className={styles.search_form} onSubmit={(e) => e.preventDefault()}>
       <InputWithLabel
         label="Search recipe"
         type="search"

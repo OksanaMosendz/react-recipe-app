@@ -7,14 +7,13 @@ import Button from '../../shared/Button/Button'
 
 function RecipeForm({ setRecipe, recipe} ){
 const { setFavoriteList, setIsEditing } = useContext(RecipesContext);
-const [ingredients, setIngredients] = useState(recipe.ingredients ? [...recipe.ingredients] : [] );
+const [ingredients, setIngredients] = useState(recipe?.ingredients ? [...recipe.ingredients] : [] );
 const [createdRecipe,setCreatedRecipe] = useState({
       ...recipe,
       img: recipe.img? recipe.img :placeholder,
       isFavorite: true,
       ingredients:[...ingredients]
 } )
-console.log([...recipe.ingredients]);
 
   function handleCreateRecipe(e) {
     const newRecipe = {
@@ -61,11 +60,11 @@ console.log([...recipe.ingredients]);
 
       <ul>
         {ingredients.map((ingr, i) => (
-          <li key={i}>
+          <li key={ingr.id}>
             <InputWithLabel
               label="Ingredient"
               type="text"
-              id={`ingredient${i}`}
+              id={`ingredient${ingr.id}`}
               value={ingr.name}
               required={true}
               onChange={(e) =>
@@ -92,7 +91,7 @@ console.log([...recipe.ingredients]);
       <Button
        text="Add ingridient"
         handleEvent={() =>
-          setIngredients([...ingredients, { name: "", measure: "" }])
+          setIngredients([...ingredients, { name: "", measure: "", id: `${Date.now()}` }])
         }
       />
       

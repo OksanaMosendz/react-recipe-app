@@ -1,0 +1,16 @@
+.recipe_wrap{
+   display:flex;
+   flex-direction: column;
+   padding: 1rem;
+}
+
+.recipe_wrap a{
+display: block;
+align-self: end;
+width: 100%;
+}
+
+
+@media (max-width: 900px) {
+
+}

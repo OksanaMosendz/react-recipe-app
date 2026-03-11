@@ -1,0 +1,15 @@
+.input_wrapper{
+display: flex;
+align-items: center;
+flex: 0.8;
+gap: 0.5rem;
+}
+
+.input_wrapper input{
+   padding: 0.4rem;
+   width: 100%;
+}
+
+
+
+

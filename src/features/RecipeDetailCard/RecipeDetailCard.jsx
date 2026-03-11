@@ -2,7 +2,7 @@ import { useContext } from "react";
 import { RecipesContext } from "../../context/RecipesContext.jsx";
 import favoritesStorage from "../../utility/favoritesStorage.js";
 import RecipeActionBtns from "../RecipeActionsBtns/RecipeActionBtns.jsx";
-
+import styles from './RecipeDetailCard.module.css';
 function RecipeDetailCard({recipe, setRecipe}){
 
  const { setFavoriteList, setIsEditing } = useContext(RecipesContext);
@@ -25,8 +25,8 @@ return(
       <p>{recipe.area}</p>
       {recipe.img&&<img src={recipe.img} alt={recipe.name} />}
       <ul>
-        {recipe.ingredients?.map((ingr, i) => 
-          <li key={i}>{ingr.name} {ingr.measure}</li>
+        {recipe.ingredients?.map((ingr) => 
+          <li key={recipe.name+ingr.name}>{ingr.name} {ingr.measure}</li>
         )}
       </ul>
       <p>{recipe.instructions}</p>

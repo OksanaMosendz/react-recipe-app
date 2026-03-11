@@ -8,6 +8,7 @@ import Error from "../../shared/Error/Error.jsx";
 import favoritesStorage from "../../utility/favoritesStorage.js";
 import formatRecipes from "../../utility/formatRecipes.js";
 import Button from "../../shared/Button/Button.jsx";
+import Loader from "../../shared/Loader/Loader.jsx";
 
 function RecipeDetails() {
   const { id } = useParams();
@@ -39,17 +40,17 @@ function RecipeDetails() {
       }
     };
 
-    favoritesStorage.getById(id)
-      ? setRecipe(favoritesStorage.getById(id))
-      : fetchRecipeById();
-    setIsLoading(false);
+    !favoritesStorage.getById(id)
+      ? fetchRecipeById()
+      : setRecipe(favoritesStorage.getById(id));
+
   }, [id, setError]);
 
   return (
     <>
       {isEditing && <RecipeForm setRecipe={setRecipe} recipe={recipe} />}
 
-      {isLoading && <p>...Loading...</p>}
+      {isLoading && <Loader/>}
       {error && <Error error={error} />}
 
       {!isLoading && !error && !isEditing && (

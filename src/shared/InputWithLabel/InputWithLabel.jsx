@@ -1,4 +1,4 @@
-import styles from './InputWithLabe.module.css'
+import styles from './InputWithLabel.module.css'
 function InputWithLabel({ label, type, id, value, onChange, required }) {
   
    return (
@@ -16,3 +16,4 @@ function InputWithLabel({ label, type, id, value, onChange, required }) {
 }
 
 export default InputWithLabel;
+

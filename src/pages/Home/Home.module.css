@@ -1,0 +1,20 @@
+.home_section{
+ display: flex;
+ flex-direction: column;
+ justify-content: center;
+}
+
+.home_section h2{
+   /* text-align: end;
+   margin-bottom: 1rem;
+   font-size: 24px; */
+}
+
+.random_recipe{
+   display: none;
+
+    @media (min-width: 600px) {
+     display: block;
+   }
+
+}
