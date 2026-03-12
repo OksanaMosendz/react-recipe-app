@@ -1,6 +1,7 @@
 import placeholder from "../assets/img/placeholder.svg"
 
 function formatRecipes(fetchedRecipeList=[], isFavorite) {
+    if (!Array.isArray(fetchedRecipeList)) return [];
   const formatedRecipeList = fetchedRecipeList?.map((recipe) => {
     let ingredients = [];
     for (let i = 1; i < 21; i++) {

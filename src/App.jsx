@@ -1,4 +1,4 @@
-import { useEffect, useState, } from "react";
+import { useEffect, useState, useContext} from "react";
 import { Route, Routes, useLocation } from "react-router-dom";
 import styles from "./App.module.css";
 import About from "./pages/About/About";
@@ -9,14 +9,15 @@ import RecipeDetails from "./pages/RecipeDetails/RecipeDetails";
 import Container from './shared/Container/Container';
 import Footer from "./shared/Footer/Footer";
 import Header from "./shared/Header/Header";
+import {RecipesContext} from './context/RecipesContext'
 
 function App() {
   const [title, setTitle] = useState("Cookbook");
-
+const {setIsEditing}=useContext(RecipesContext);
   const location = useLocation();
 
  useEffect(() => {
-
+setIsEditing(false);
 const changeTitle = ()=>{
 
   if(location.pathname.startsWith('/recipe/')){
@@ -43,7 +44,7 @@ const changeTitle = ()=>{
   }
 changeTitle();
 
-  },[location.pathname]);
+  },[location.pathname,setIsEditing]);
 
   return (
   <div className={styles.app}>

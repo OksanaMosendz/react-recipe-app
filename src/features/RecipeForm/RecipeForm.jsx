@@ -26,6 +26,7 @@ const [createdRecipe,setCreatedRecipe] = useState({
     setRecipe(newRecipe);
     favoritesStorage.addRecipe(newRecipe);
     setFavoriteList(favoritesStorage.getList());
+
     setCreatedRecipe({
                 name: "",
                 id: '',
@@ -105,7 +106,7 @@ const [createdRecipe,setCreatedRecipe] = useState({
       ></textarea>
 </div>
 <div className={ styles.form_btns}>
-      <Button text="Save" type="submit" disabled={!createdRecipe.name} handleEvent={(e)=>handleCreateRecipe(e)} id="createRecipe"/>
+      <Button text="Save" type="submit" disabled={!createdRecipe.name}  id="createRecipe"/>
       <Button text="Cancel" handleEvent={()=>setIsEditing(false)}>Cancel</Button>
       </div>
     </form>

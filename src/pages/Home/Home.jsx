@@ -79,7 +79,7 @@ function Home() {
           throw new Error(data.error.message);
         }
         const recipes = await data.meals;
-
+console.log(recipes)
         setRandomRecipe(formatRecipes(recipes, false, "medium")[0]);
       } catch (error) {
         setError(error.message);
@@ -100,7 +100,7 @@ function Home() {
         {isLoading && Object.keys(randomRecipe).length === 0 ? (
          <Loader />
         ) : (
-          <RecipeItem recipe={randomRecipe} />
+          <RecipeItem className={styles.random_recipe_item} recipe={randomRecipe} />
         )}
    </div>
         <SearchForm setSearchValue={setSearchValue} searchValue={searchValue} />

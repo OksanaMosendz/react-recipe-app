@@ -7,7 +7,7 @@ import {Link} from "react-router-dom";
    return(
    <footer className={styles.footer}>
    <Container className={styles.footer_container}>
-   <p>&copy; {new Date().getFullYear()} Oksana Mosendz</p>
+   <p>&copy;  {new Date().getFullYear()}</p>
   <Link to="/">
    <Logo className="logo-footer"/>
 </Link>
