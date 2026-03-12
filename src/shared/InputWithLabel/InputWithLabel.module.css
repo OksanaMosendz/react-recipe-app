@@ -6,6 +6,8 @@
 }
 
 .input_wrapper input {
-  padding: 0.4rem;
+  padding: 0.3rem 0.8rem;
+  font-size: 1.5rem;
   width: 100%;
+  line-height: 1.5;
 }

@@ -17,11 +17,6 @@
   }
 }
 
-.btn:hover,
-:focus {
-  transform: scale(1.2);
-}
-
 .btn:disabled {
   background-color: rgb(196, 191, 191);
   color: rgb(82, 80, 80);
