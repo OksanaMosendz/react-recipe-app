@@ -17,11 +17,10 @@ function Home() {
   const [isLoading, setIsLoading] = useState(false);
   const [error, setError] = useState("");
 
-
   const fetchRecipesByLetter = useCallback(async () => {
     setError("");
     setIsLoading(true);
-        try {
+    try {
       const response = await fetch(
         `${API.url}${API.key}${API.query.byLetter}${searchValue[0]}`,
       );
@@ -32,10 +31,9 @@ function Home() {
       }
       const recipes = await data.meals;
 
-  if (recipes) {
-  setRecipeList(formatRecipes(recipes, false));
-} else  setRecipeList([]);
-
+      if (recipes) {
+        setRecipeList(formatRecipes(recipes, false));
+      } else setRecipeList([]);
     } catch (error) {
       setError(error.message);
     } finally {
@@ -47,10 +45,10 @@ function Home() {
     const debounce = setTimeout(() => {
       if (searchValue.length === 0) {
         setRecipeList([]);
-        setFilteredRecipeList([])
+        setFilteredRecipeList([]);
       } else if (searchValue.length === 1) {
         fetchRecipesByLetter();
-      } 
+      }
     }, 300);
     return () => clearTimeout(debounce);
   }, [searchValue, fetchRecipesByLetter]);
@@ -61,10 +59,9 @@ function Home() {
         recipe.name.toLowerCase().includes(searchValue.toLowerCase()),
       );
       setFilteredRecipeList(filteredList);
-     
     } else if (recipeList.length === 0 && searchValue.length > 1) {
       fetchRecipesByLetter();
-    } 
+    }
   }, [searchValue, recipeList, fetchRecipesByLetter]);
 
   useEffect(() => {
@@ -79,7 +76,7 @@ function Home() {
           throw new Error(data.error.message);
         }
         const recipes = await data.meals;
-console.log(recipes)
+      
         setRandomRecipe(formatRecipes(recipes, false, "medium")[0]);
       } catch (error) {
         setError(error.message);
@@ -95,14 +92,17 @@ console.log(recipes)
   } else
     return (
       <section className={styles.home_section}>
-  <div className={styles.random_recipe}>
-        <h2>Try to cook!</h2>
-        {isLoading && Object.keys(randomRecipe).length === 0 ? (
-         <Loader />
-        ) : (
-          <RecipeItem className={styles.random_recipe_item} recipe={randomRecipe} />
-        )}
-   </div>
+        <div className={styles.random_recipe}>
+          <h2>Try to cook!</h2>
+          {isLoading && Object.keys(randomRecipe).length === 0 ? (
+            <Loader />
+          ) : (
+            <RecipeItem
+              className={styles.random_recipe_item}
+              recipe={randomRecipe}
+            />
+          )}
+        </div>
         <SearchForm setSearchValue={setSearchValue} searchValue={searchValue} />
 
         {searchValue && !isLoading && (
@@ -113,12 +113,17 @@ console.log(recipes)
           />
         )}
 
-        {isLoading && searchValue && <Loader/>}
+        {isLoading && searchValue && <Loader />}
 
-        {!isLoading && searchValue.length>0 && recipeList.length===0&&<p>No recipes found for "{searchValue}"</p>}
+        {!isLoading && searchValue.length > 0 && recipeList.length === 0 && (
+          <p>No recipes found for "{searchValue}"</p>
+        )}
 
-{!isLoading && searchValue.length>1 && filteredRecipeList.length===0&&<p>No recipes found for "{searchValue}"</p>}
-
+        {!isLoading &&
+          searchValue.length > 1 &&
+          filteredRecipeList.length === 0 && (
+            <p>No recipes found for "{searchValue}"</p>
+          )}
       </section>
     );
 }

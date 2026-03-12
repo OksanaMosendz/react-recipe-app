@@ -1,30 +1,28 @@
-.home_section{
- display: flex;
- flex-direction: column;
- justify-content: center;
- gap: 2rem;
- text-align: center;
+.home_section {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  gap: 2rem;
+  text-align: center;
 }
 
-.random_recipe{
-   display: none;
-    @media (min-width: 600px) {
-     display: block;
- border-radius: 1rem;
-     text-align: left;
-   }
-   
-
+.random_recipe {
+  display: none;
+  @media (min-width: 600px) {
+    display: block;
+    border-radius: 1rem;
+    text-align: left;
+  }
 }
 
 .random_recipe h2 {
-justify-self: flex-end;
+  justify-self: flex-end;
   margin-bottom: 1rem;
   font-size: 2rem;
 }
 
-.random_recipe_item{
-cursor: pointer;
+.random_recipe_item {
+  cursor: pointer;
   display: flex;
   flex-direction: column;
   border-radius: 1rem;
@@ -34,15 +32,14 @@ cursor: pointer;
 .random_recipe_item img {
   width: 100%;
   display: block;
-    max-height: 600px;
+  max-height: 600px;
   object-fit: cover;
-  
 }
 
 .random_recipe_item h3 {
-  color:black;
+  color: black;
   margin: 0;
-  padding: 1.5rem ;
+  padding: 1.5rem;
   background: rgba(0, 0, 0, 0.116);
   font-size: 1.5rem;
   font-weight: 600;

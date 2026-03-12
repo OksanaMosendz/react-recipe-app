@@ -1,5 +1,5 @@
 import { useContext, useEffect, useState } from "react";
-import { useParams, useLocation, useNavigate } from "react-router-dom";
+import { useParams } from "react-router-dom";
 import API from "../../API/API.js";
 import { RecipesContext } from "../../context/RecipesContext.jsx";
 import RecipeDetailCard from "../../features/RecipeDetailCard/RecipeDetailCard.jsx";
@@ -8,6 +8,7 @@ import Error from "../../shared/Error/Error.jsx";
 import favoritesStorage from "../../utility/favoritesStorage.js";
 import formatRecipes from "../../utility/formatRecipes.js";
 import Loader from "../../shared/Loader/Loader.jsx";
+import styles from "./RecipeDetails.module.css";
 
 function RecipeDetails() {
   const { id } = useParams();
@@ -15,7 +16,7 @@ function RecipeDetails() {
   const [recipe, setRecipe] = useState({});
   const [error, setError] = useState("");
   const { isEditing } = useContext(RecipesContext);
- 
+
   useEffect(() => {
     const fetchRecipeById = async () => {
       setError("");
@@ -40,22 +41,19 @@ function RecipeDetails() {
     !favoritesStorage.getById(id)
       ? fetchRecipeById()
       : setRecipe(favoritesStorage.getById(id));
-
   }, [id, setError]);
 
   return (
-    <>
+    <section className={styles.recipe_section}>
       {isEditing && <RecipeForm setRecipe={setRecipe} recipe={recipe} />}
 
-      {isLoading && <Loader/>}
+      {isLoading && <Loader />}
       {error && <Error error={error} />}
 
       {!isLoading && !error && !isEditing && (
         <RecipeDetailCard recipe={recipe} setRecipe={setRecipe} />
       )}
-
-     
-    </>
+    </section>
   );
 }
 

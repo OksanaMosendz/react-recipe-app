@@ -1,6 +1,5 @@
 const getList=()=> JSON.parse(localStorage.getItem("favoriteRecipeList")) || []
 
-
 const setList = (list) => {
   localStorage.setItem("favoriteRecipeList", JSON.stringify(list));
 };

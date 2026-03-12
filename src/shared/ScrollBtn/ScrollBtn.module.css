@@ -1,0 +1,13 @@
+.scroll_btn {
+  position: fixed;
+  bottom: 15px;
+  right: 30px;
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  border: none;
+  cursor: pointer;
+  max-width: auto;
+  min-width: auto;
+  text-align: center;
+}

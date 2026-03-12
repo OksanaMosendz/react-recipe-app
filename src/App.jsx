@@ -10,6 +10,7 @@ import Container from './shared/Container/Container';
 import Footer from "./shared/Footer/Footer";
 import Header from "./shared/Header/Header";
 import {RecipesContext} from './context/RecipesContext'
+import ScrollBtn from "./shared/ScrollBtn/ScrollBtn";
 
 function App() {
   const [title, setTitle] = useState("Cookbook");
@@ -59,6 +60,7 @@ changeTitle();
       </Routes>
       </Container>
       <Footer/>
+      <ScrollBtn/>
 </div>
 
   );

@@ -1,60 +1,62 @@
-.recipe_form{
+.recipe_form {
    display: flex;
    flex-direction: column;
    gap: 1rem;
 }
 
 .textArea_wrap {
-  display: flex;
-  flex-direction: column;
+   display: flex;
+   flex-direction: column;
 }
 
 .textArea_wrap label {
-  margin-bottom: 0.3rem;
+   margin-bottom: 0.3rem;
 }
 
 .textArea_wrap textarea {
-  width: 100%;
-  min-height: 120px;
-  padding: 0.5rem;
-  border: 1px solid #ccc;
-  border-radius: 6px;
-  font-size: 1rem;
-  resize: vertical;
+   width: 100%;
+   min-height: 120px;
+   padding: 0.5rem;
+   border: 1px solid #ccc;
+   border-radius: 6px;
+   font-size: 1rem;
+   resize: vertical;
 }
 
-.ingr_btn{
+.ingr_btn {
    align-self: flex-end;
 }
 
-.ingr_list{
-    display: flex;
-    flex-direction: column;
-    gap: 0.5rem;
+.ingr_list {
+   display: flex;
+   flex-direction: column;
+   gap: 0.5rem;
 }
 
-.ingr_item{
-    display: flex;
-    align-items:center;
-gap:0.3rem;
+.ingr_item {
+   display: flex;
+   align-items: center;
+   gap: 0.3rem;
 
 }
 
-.ingr_del_btn{
-min-width: auto;
-width:40px;
-background-color: white;
-border: 2px solid #F97316;
-text-align:center;
-font-size: 1rem;
-}
-
-.form_btns{
+.ingr_del_btn {
+   min-width: auto;
+   width: 40px;
+   background-color: white;
+   border: 2px solid #F97316;
    text-align: center;
-   :first-child{
+   font-size: 1rem;
+}
+
+.form_btns {
+   text-align: center;
+
+   :first-child {
       margin-right: 2rem;
    }
-   button{
+
+   button {
       min-width: 75px;
    }
 }

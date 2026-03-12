@@ -1,22 +1,18 @@
-.notFound_section{
-   text-align: center;
+.notFound_section {
+  text-align: center;
 }
 
-.notFound_section{
+.notFound_section {
+  img {
+    display: inline-block;
+    width: 500px;
+  }
 
-img{
-   display: inline-block;
-   width: 500px;
+  p {
+    margin: 2rem 0;
+  }
+
+  h2 {
+    color: #ef4444;
+  }
 }
-
-p{
-margin: 2rem 0 ;
-}
-
-h2{
-   color: #EF4444;;
-}
-  
-} 
-
-

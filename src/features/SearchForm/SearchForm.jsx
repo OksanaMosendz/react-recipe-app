@@ -3,7 +3,7 @@ import Button from "../../shared/Button/Button";
 import styles from "./SearchForm.module.css";
 
 function SearchForm({ searchValue, setSearchValue }) {
-   return (
+  return (
     <form className={styles.search_form} onSubmit={(e) => e.preventDefault()}>
       <InputWithLabel
         label="Search recipe"
@@ -16,10 +16,8 @@ function SearchForm({ searchValue, setSearchValue }) {
       <Button
         disabled={!searchValue}
         handleEvent={() => setSearchValue("")}
-           text='Clear'
+        text="Clear"
       />
-    
-    
     </form>
   );
 }

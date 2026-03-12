@@ -1,22 +1,14 @@
-.recipe_wrap_link{
-   display:flex;
-   flex-direction: column;
-   justify-content: center;
- 
-   width:100%;
-height:fit-content;
-
+.recipe_wrap_link {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  width: 100%;
+  height: fit-content;
 }
 
-.recipe_wrap_link img, .recipe_wrap_link svg{
-   display: block;
- /* width: 100%; */
-height:100%;
- object-fit: cover;
+.recipe_wrap_link img,
+.recipe_wrap_link svg {
+  display: block;
+  height: 100%;
+  object-fit: cover;
 }
-
-
-
-
-
-
